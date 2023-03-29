@@ -4,10 +4,17 @@ import { Switch as Sw} from 'antd';
 const Switch = ({
     onChange,
     className,
-    size
+    size,
+    checked
 }) => {
   return (
-    <Sw className={` ${className}`} size={size} defaultChecked onChange={onChange} />
+    <Sw 
+    className={` ${className}`} 
+    size={size} 
+    defaultChecked 
+    onChange={onChange} 
+    checked={checked}
+    />
   )
 }
 

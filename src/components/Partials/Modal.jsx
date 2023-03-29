@@ -1,17 +1,19 @@
 import React from 'react'
-import { Modal } from 'antd'
+import { Modal as Mod } from 'antd'
 
-const Index = ({
+const Modal = ({
     isModalOpen,
     handleCancel,
     handleOk,
-    children
+    children,
+    title,
+    width
 }) => {
   return (
-    <Modal footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+    <Mod width={width} footer={null} title={title} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         {children}
-      </Modal>
+      </Mod>
   )
 }
 
-export default Index
+export default Modal

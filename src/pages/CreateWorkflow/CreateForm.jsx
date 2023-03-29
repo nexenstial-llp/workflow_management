@@ -20,12 +20,14 @@ import Radio from '../../components/Form/Radio'
 import DatePicker from '../../components/Form/DatePicker'
 import TimePicker from '../../components/Form/TimePicker'
 import Switch from '../../components/Form/Switch'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '../../routes/RouterConfig'
 
 const CreateForm = () => {
 
 
-    //////////Modal Details
-    //Add Section Modal
+    //Hooks
+    const navigate = useNavigate()
 
     //Declaring string in variables to avoid typos
     const types = {
@@ -88,50 +90,62 @@ const CreateForm = () => {
     const [openForEdit, setOpenForEdit] = useState()
 
     //Object of the form
-    const [formData, setFormData] = useState([
+    // const [formData, setFormData] = useState([
+    //     {
+    //         title: 'Basic Information',
+    //         id: 1,
+    //         priority: 1,
+    //         items: [
+    //             {
+    //                 id: 1,
+    //                 section_id: 1,
+    //                 type: types.shortAnswer,
+    //                 placeHolder: 'This is placeholder',
+    //                 title: 'What is the name of the item?'
+    //             },
+    //             {
+    //                 id: 2,
+    //                 section_id: 1,
+    //                 type: types.shortAnswer,
+    //                 placeHolder: 'This is placeholder',
+    //                 title: 'What is the name of the item?'
+    //             },
+    //         ]
+    //     }
+    // ])
+
+    const [sections, setSections] = useState([
         {
-            title: 'Basic Information',
+            title: 'Unknown Section 1',
             id: 1,
             priority: 1,
-            items: [
-                {
-                    id: 1,
-                    section_id: 1,
-                    type: types.shortAnswer,
-                    placeHolder: 'This is placeholder',
-                    title: 'What is the name of the item?'
-                },
-                {
-                    id: 2,
-                    section_id: 1,
-                    type: types.shortAnswer,
-                    placeHolder: 'This is placeholder',
-                    title: 'What is the name of the item?'
-                },
-            ]
         }
     ])
 
-    const sections = [
-        {
-            title:'Unknown Section 1',
-            id:1,
-            priority:1
-        }
-    ]
+    const initialField = {
 
-    const fields = [
+        title: 'Unkown Field 1',
+        type: types.shortAnswer,
+        placeHolder: 'Enter Your Answer',
+        options: [
+            {
+                id: 1,
+                value: 'Option 1'
+            }
+        ],
+        required: true
+    }
+
+    const [fields, setFields] = useState([
         {
-            id:1,
-            title:'Unkown Field 1',
-            section_id:1,
-            type: types.shortAnswer,
-            placeHolder: 'This is placeholder',
+            id: 1,
+            section_id: 1,
+            ...initialField
         }
-    ]
+    ])
 
     //For refreshing the component
-    const [flag, setFalg] = useState(false)
+    const [flag, setFlag] = useState(false)
 
 
 
@@ -144,106 +158,89 @@ const CreateForm = () => {
     //Helping functions to add functionality in the form
     ////////////////////////////////////////////////////
 
+    const generateRandomNumber= () => Math.floor(Math.random() * 90000) + 10000
+
     //This fnction adds new input field
-    const addFeild = (section_id) => {
-        const arr = [];
+    const addField = (section_id) => {
+        const arr = [...fields];
         const obj = {
             id: Math.floor(Math.random() * 90000) + 10000,
             section_id: section_id,
-            type: types.shortAnswer,
-            placeHolder: 'This is placeholder',
-            title: 'What is the name of the item?'
+            ...initialField
         }
 
-        console.log(obj);
-        for (const i of formData) {
-            const items = i.items;
-            if (section_id === i.id) {
-                items.push(obj);
-            }
-            arr.push({ ...i, items: items })
-        }
+        arr.push(obj)
 
-        setFormData(arr)
+        setFields(arr)
     }
 
-    const deleteField = (field) => {
-        const arr = []
-        for (const i of formData) {
-            const obj = i
-            const arr2 = []
-            if (i.id == field.section_id) {
-                for (const j of i.items) {
-                    if (field.id === j.id) {
-                        continue;
-                    }
-                    else {
-                        arr2.push(j)
-                    }
-                }
-                obj.items = arr2
-            }
-            arr.push(obj)
-        }
 
-        setFormData(arr)
+    //Function to delete Field
+    const deleteField = (field) => {
+        const arr = fields.filter(s => s.id != field.id)
+        setFields(arr)
     }
 
     //This fnction adds new Section
     const addSection = (priority) => {
+        const id = generateRandomNumber()
+        const arr = [...sections]
+        const arr2 = [...fields]
         const obj = {
-            id: formData?.length + 1,
+            id: id,
             priority: priority,
             title: "Unkown new section",
-            items: [
-                {
-                    id: Math.floor(Math.random() * 90000) + 10000,
-                    section_id: formData?.length + 1,
-                    type: types.shortAnswer,
-                    placeHolder: 'This is placeholder',
-                    title: 'Unkwn input field'
-                }
-            ]
         }
 
-        const arr = []
-        for (const i of formData) {
-            arr.push(i)
+        const obj2 = {
+            id: Math.floor(Math.random() * 90000) + 10000,
+            section_id: id,
+            ...initialField
         }
+        arr2.push(obj2)
+        arr.push(obj)
 
-        arr.push(obj);
-        setFormData(arr)
+        setFields(arr2)
+        setSections(arr)
+    }
+
+    const deleteSection  = (section_id) => {
+        if(sections.length==1) return alert('Atleas one section is required')
+        const arr = sections.filter(s=>s.id!=section_id)
+        setSections(arr)
     }
 
 
     // This function is responsible for editin label
-    const handleLableChange = (e, section_id, field_id) => {
-        const arr = []
-        for (const i of formData) {
-            let obj = {};
-            if (i.id === section_id) {
-                const arr2 = []
-                for (const j of i.items) {
-                    let obj2 = {}
-                    if (field_id === j.id) {
-                        obj2 = { ...j, title: e.target.value }
-                    }
-                    else {
-                        obj2 = { ...j }
-                    }
+    // const handleLableChange = (e, section_id, field_id) => {
+    //     const arr = []
+    //     for (const i of formData) {
+    //         let obj = {};
+    //         if (i.id === section_id) {
+    //             const arr2 = []
+    //             for (const j of i.items) {
+    //                 let obj2 = {}
+    //                 if (field_id === j.id) {
+    //                     obj2 = { ...j, title: e.target.value }
+    //                 }
+    //                 else {
+    //                     obj2 = { ...j }
+    //                 }
 
-                    arr2.push(obj2)
-                    obj = { ...i, items: arr2 }
-                }
-            }
-            else {
-                obj = { ...i }
-            }
-            arr.push(obj)
-        }
+    //                 arr2.push(obj2)
+    //                 obj = { ...i, items: arr2 }
+    //             }
+    //         }
+    //         else {
+    //             obj = { ...i }
+    //         }
+    //         arr.push(obj)
+    //     }
 
-        setFormData(arr)
-    }
+    //     setFormData(arr)
+    // }
+
+
     return (
         <div className='CreateForm min-h-screen min-w-screen'>
             <div className='w-full p-3 flex justify-between items-center shadow mb-5'>
@@ -254,7 +251,7 @@ const CreateForm = () => {
                     <button className='border border-[1px] border-neutral-500 bg-white text-neutral-500 rounded p-1 px-3 flex items-center justify-center'>
                         cancel
                     </button>
-                    <button className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
+                    <button onClick={()=>navigate(ROUTES.AddApprovers,{state:{data:{sections,fields}}})} className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
                         continue
                     </button>
                 </div>
@@ -267,20 +264,34 @@ const CreateForm = () => {
                     This is description
                 </div>
                 {
-                    formData.map((i, key) => (
+                    sections.map((i, key) => (
                         <section key={key} className='section border border-0 border-b-2 p-2 mt-10 transition-all'>
-                            <EditableLabel className='text-xl font-medium w-full duration-500' style={{ wordWrap: 'break-word' }} onChange={(e) => {
-                                i.title = e.target.value;
-                                setFalg(prev => !prev)
-                            }}
+                            <div className="flex">
+
+                            <EditableLabel
+                                className='text-xl font-medium w-full duration-500'
+                                style={{ wordWrap: 'break-word' }}
+                                onChange={(e) => {
+                                    i.title = e.target.value;
+                                    setFlag(prev => !prev)
+                                }}
                                 value={i.title}
-                            />
+                                />
+                                <div onClick={()=>{deleteSection(i.id)}} className='bg-red-100 p-2 ml-2 cursor-pointer rounded'><BsTrash className='text-red-500'/></div>
+                                </div>
                             {
-                                i.items.map((j, key2) => (
-                                    <div className={`form-holder mt-5 p-4 rounded-lg transition-all ${openForEdit == j.id ? 'bg-blue-100' : ''}`} key={key2}>
+                                fields.filter(s => s.section_id == i.id).map((j, key2) => (
+                                    <div className={`form-holder mt-5 p-4 rounded-lg transition-all ${openForEdit == j.id ? 'shadow-card' : ''}`} key={key2}>
                                         <div className='form-item flex gap-3'>
                                             <div className='input-fields-holder flex flex-col gap-0.5 w-full'>
-                                                <EditableLabel value={j.title} className="bg-transparent" onChange={(e) => { handleLableChange(e, j.section_id, j.id) }} />
+                                                <EditableLabel
+                                                    value={j.title}
+                                                    className="bg-transparent"
+                                                    onChange={(e) => {
+                                                        j.title = e.target.value;
+                                                        setFlag(prev => !prev)
+                                                    }}
+                                                />
                                                 {
                                                     j.type == types.longAnswer
                                                         ?
@@ -296,11 +307,51 @@ const CreateForm = () => {
                                                                 :
                                                                 j.type == types.checkBox
                                                                     ?
-                                                                    <CheckBox />
+                                                                    <div className='flex flex-col'>
+                                                                            {
+                                                                                j.options.map((k, key3) => (
+                                                                                    <div key={key3} className='flex item-center mt-2 w-full'>
+                                                                                        <div className='sm:w-[100px] w-[50%]'>Option {key3 + 1} :</div> <EditableLabel className={'bg-nuetral-500 border-b-[1px] border-blue-400 w-full'} value={k.value} onChange={(e) => { k.value = e.target.value; setFlag(prev => !prev) }} /> <div onClick={()=>{j.options=j.options.filter(s=>s.id!=k.id); setFlag(prev=>!prev)}} className='bg-red-100 p-2 ml-2 cursor-pointer rounded'><BsTrash className='text-red-500'/></div>
+                                                                                    </div>
+                                                                                ))
+                                                                            }
+                                                                            <div>
+
+                                                                            <button 
+                                                                            onClick={()=>{
+                                                                                const obj = {value:'Unkown Option', id:generateRandomNumber()}
+                                                                                j.options.push(obj);
+                                                                                setFlag(prev=>!prev)
+                                                                            }} 
+                                                                            className='bg-blue-600 text-neutral-100 rounded p-1 px-3 mt-4'>
+                                                                                add option
+                                                                            </button>
+                                                                            </div>
+                                                                        </div>
                                                                     :
                                                                     j.type == types.select
                                                                         ?
-                                                                        <Select />
+                                                                        <div className='flex flex-col'>
+                                                                            {
+                                                                                j.options.map((k, key3) => (
+                                                                                    <div key={key3} className='flex item-center mt-2 w-full'>
+                                                                                        <div className='sm:w-[100px] w-[50%]'>Option {key3 + 1} :</div> <EditableLabel className={'bg-nuetral-500 border-b-[1px] border-blue-400 w-full'} value={k.value} onChange={(e) => { k.value = e.target.value; setFlag(prev => !prev) }} /> <div onClick={()=>{j.options=j.options.filter(s=>s.id!=k.id); setFlag(prev=>!prev)}} className='bg-red-100 p-2 ml-2 cursor-pointer rounded'><BsTrash className='text-red-500'/></div>
+                                                                                    </div>
+                                                                                ))
+                                                                            }
+                                                                            <div>
+
+                                                                            <button 
+                                                                            onClick={()=>{
+                                                                                const obj = {value:'Unkown Option', id:generateRandomNumber()}
+                                                                                j.options.push(obj);
+                                                                                setFlag(prev=>!prev)
+                                                                            }} 
+                                                                            className='bg-blue-600 text-neutral-100 rounded p-1 px-3 mt-4'>
+                                                                                add option
+                                                                            </button>
+                                                                            </div>
+                                                                        </div>
                                                                         :
                                                                         j.type == types.radio
                                                                             ?
@@ -325,7 +376,7 @@ const CreateForm = () => {
                                                             typesArr.map((k, key3) => (
                                                                 <div onClick={() => {
                                                                     j.type = k.name;
-                                                                    setFalg(prev => !prev)
+                                                                    setFlag(prev => !prev)
                                                                 }}
                                                                     className={`flex flex-col gap-0.5 min-w-[100px] border  p-2 items-center justify-center gap-2 rounded-lg cursor-pointer ${k.name == j.type ? 'bg-blue-800 text-neutral-50' : 'border-blue-800'}`}
                                                                 >
@@ -346,7 +397,15 @@ const CreateForm = () => {
                                             </div>
                                             <div className='settings w-[100px] flex flex-col justify-center gap-4 items-center '>
                                                 <div className='flex items-center gap-2 text-sm'>
-                                                    <Switch size="small" className={'bg-neutral-400'} />
+                                                    <Switch
+                                                        checked={j.required}
+                                                        onChange={(e) => {
+                                                            j.required = e;
+                                                            setFlag(prev => !prev)
+                                                        }}
+                                                        size="small"
+                                                        className={'bg-neutral-400'}
+                                                    />
                                                     required
                                                 </div>
                                                 <div className='cursor-pointer'>
@@ -388,7 +447,7 @@ const CreateForm = () => {
                             }
                             <div className='flex justify-center mt-6'>
                                 <div className='flex gap-2'>
-                                    <button onClick={() => { addFeild(i.id) }} className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
+                                    <button onClick={() => { addField(i.id) }} className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
                                         Add field
                                     </button>
                                     <button onClick={() => { addSection(1) }} className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
