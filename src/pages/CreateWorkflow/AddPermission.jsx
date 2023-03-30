@@ -57,7 +57,7 @@ const AddPermission = () => {
                     <button className='border border-[1px] border-neutral-500 bg-white text-neutral-500 rounded p-1 px-3 flex items-center justify-center'>
                         cancel
                     </button>
-                    <button onClick={navigate(ROUTES.Workflows)} className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
+                    <button onClick={()=>navigate(ROUTES.Workflows)} className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
                         continue
                     </button>
                 </div>
