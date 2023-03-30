@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { ROUTES } from '../../routes/RouterConfig';
 
 const AddPermission = () => {
 
@@ -12,6 +13,8 @@ const AddPermission = () => {
     const [approvers, setApprovers] = useState([])
 
     const [flag, setFlag] = useState(false)
+
+    const navigate = useNavigate()
 
     const permissions = {
         hidden:'hidden',
@@ -54,7 +57,7 @@ const AddPermission = () => {
                     <button className='border border-[1px] border-neutral-500 bg-white text-neutral-500 rounded p-1 px-3 flex items-center justify-center'>
                         cancel
                     </button>
-                    <button className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
+                    <button onClick={navigate(ROUTES.Workflows)} className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
                         continue
                     </button>
                 </div>
