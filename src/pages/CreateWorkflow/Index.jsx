@@ -9,7 +9,7 @@ const Index = () => {
         <div className='container m-auto sm:p-5 p-3'>
             <div className="grid sm:grid-cols-5 gap-3">
                 <div onClick={()=>{navigate(ROUTES.CreateForm)}} className="col-span-1 card shadow-card p-2 aspect-square flex items-center justify-center text-2xl font-bold cursor-pointer">
-                    Create App
+                    Create Workflow
                 </div>
             </div>
         </div>

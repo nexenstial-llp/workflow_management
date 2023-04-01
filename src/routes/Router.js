@@ -14,7 +14,7 @@ const Router = () => {
     const RouteWithRole = ({ Element }) => {
         return (
           <>
-          <Navbar/>
+          {/* <Navbar/> */}
             <Element/>
           </>
         );

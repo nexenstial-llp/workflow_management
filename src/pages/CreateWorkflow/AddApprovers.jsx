@@ -28,9 +28,9 @@ const AddApprovers = () => {
     }
 
     const types = {
-        creater:'Creation',
+        creater:'Configure your workflow',
         approver:'Approval Step',
-        input:'input Step'
+        input:'Input Step'
     }
 
 
@@ -52,7 +52,7 @@ const AddApprovers = () => {
 
     const [approvers, setApprovers] = useState([
         {
-            title: 'Who can start the app',
+            title: 'Who can start the Process',
             accessToAll: true,
             users: [],
             type:types.creater,
@@ -124,7 +124,7 @@ const AddApprovers = () => {
                         width: '100%',
                     }}
                     disabled={editData.accessToAll}
-                    placeholder="select one country"
+                    placeholder="Add  Email"
                     defaultValue={[options[0].value]}
                     onChange={handleChange}
                     value={editData.users}
@@ -163,11 +163,11 @@ const AddApprovers = () => {
             </div>
             <div className="mb-10 sm:w-[90%] w-[95%] m-auto shadow-card border border-[1px] border-[#F2ECFF] sm:p-10 p-2">
                 <div className='text-2xl font-semibold'>
-                    This is Title
+                   Workflow-1
                 </div>
-                <div className='text-sm text-neutral-500'>
+                {/* <div className='text-sm text-neutral-500'>
                     This is description
-                </div>
+                </div> */}
 
 
 
@@ -206,9 +206,9 @@ const AddApprovers = () => {
                                     }
 
                                 </div>
-                                <div className='w-[100px]'>
-                                    <button onClick={()=>{handleOpenModal();setEditKey(key);setEditData(i)}} className='w-full bg-blue-600 text-neutral-100 rounded p-1 px-3'>
-                                        change
+                                <div className='w-[140px]'>
+                                    <button onClick={()=>{handleOpenModal();setEditKey(key);setEditData(i)}} className='w-full btn btn-danger text-neutral-100 rounded p-1 px-3'>
+                                        Assigned to
                                     </button>
                                 </div>
                             </div>
@@ -229,8 +229,8 @@ const AddApprovers = () => {
                                 }}
                                 trigger={['click']}
                             >
-                                <button className='absolute bottom-[-20px] left-[45%] m-auto bg-blue-600 text-neutral-100 rounded p-1 px-3'>
-                                    Add+
+                                <button className='absolute bottom-[-20px] left-[45%] m-auto btn btn-success text-neutral-100 rounded p-1 px-3'>
+                                    Add +
                                 </button>
                             </Dropdown>
 

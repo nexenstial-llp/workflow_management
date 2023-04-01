@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import Switch from '../../components/Form/Switch';
 import { ROUTES } from '../../routes/RouterConfig';
 
 const AddPermission = () => {
@@ -84,6 +85,49 @@ const AddPermission = () => {
                                 <div className='text-xl font-medium mb-10 grid grid-cols-'>
                                     {i.title}
                                 </div>
+
+
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-md-4">
+                                            
+                                            <div className="form-group">
+                                                <label htmlFor=" "> Workflow-Number </label>
+                                                <input type="text" readonly="readonly"  className="form-control" />
+                                            </div>
+                                            </div>
+                                            
+                                            <div className="col-md-4">
+                                            
+                                            <div className="form-group">
+                                                <label htmlFor=" "> Request Date </label>
+                                                <input type="date"   className="form-control" />
+                                            </div>
+                                            </div>
+                                            <div className="col-md-4">
+                                            
+                                            <div className="form-group">
+                                                <label htmlFor=" "> Requester name </label>
+                                                <input type="text"   className="form-control" />
+                                            </div>
+                                            </div>
+
+                                            <div className="col-md-4">
+                                            
+                                            <div className="form-group">
+                                                <label htmlFor=" "> Department for </label>
+                                                <input type="text"   className="form-control" />
+                                            </div>
+                                            </div>
+                                            <div className="col-md-4">
+                                            
+                                            <div className="form-group">
+                                                <label htmlFor=" "> Department Head </label>
+                                                <input type="text"   className="form-control" />
+                                            </div>
+                                            </div>
+               </div>
+                                </div>
                                 <div className='flex flex-col gap-3'>
                                     {
                                         data.fields.filter(s => s.section_id == i.id).map((j, key2) => (
@@ -133,6 +177,170 @@ const AddPermission = () => {
                                     }
 
                                 </div>
+                                <div className="row mt-3 bg-light-primary" style={{backgroundColor:"#f2f9ff"}}>
+                                    <div className="col-md-12">
+                                        <h3 style={{fontSize:"25px",fontWeight:"500"}}>Budget Request Details</h3> <br />
+                                        <h5>Budget Information</h5>
+
+                                        <table className="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Sl.No.
+                                                    </th>
+                                                    <th>
+                                                        Account Head
+                                                    </th>
+                                                    <th>Initially Requested Budget</th>
+                                                    <th>Initially  Allocated Budget</th>
+                                                    <th>Remaining Budget</th>
+                                                    <th>Approved Budget</th>
+                                                    <th>Justification</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>01</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>02</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>03</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>04</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div className="row mt-3">
+                                    <div className="col-md-12">
+                                    <h3 style={{fontSize:"25px",fontWeight:"500"}}>Budget Transfer Details</h3> <br />
+<br />
+<p>Do you  wants to  Transfer Budget From Another Person? <Switch
+                                                        onChange={(e) => {
+                                                      
+                                                            setFlag(prev => !prev)
+                                                        }}
+                                                        size="small"
+                                                        className={'bg-neutral-400'}
+                                                    /></p>
+<div className="row mt-4">
+<div className="col-md-6">
+    <div className="form-group">
+        <label htmlFor="">Choose Account Head  to be Reduced</label>
+        <input type="text" className="form-control" />
+    </div>
+</div>
+<div className="col-md-6">
+    <div className="form-group">
+        <label htmlFor="">Approved Transfer Amount</label>
+       
+
+        <div className="input-group mb-3">
+  <span className="input-group-text" id="basic-addon1">₹</span>
+  <input type="text" className="form-control" />
+  <div class="input-group-append">
+    <select name="" id="">
+        <option value="">INR</option>
+        <option value="">USD</option>
+    </select>
+  </div>
+</div>
+    </div>
+</div>
+</div>
+
+
+<div className="row">
+    <div className="col-md-12">
+    <h3 style={{fontSize:"25px",fontWeight:"500"}}>Summary</h3>
+    <p>Summary of Additional Budget</p> <br />
+    </div>
+    <div className="col-md-4">
+    <div className="form-group">
+        <label htmlFor="">Total Aditional Budget Requested</label>
+       
+
+        <div className="input-group mb-3">
+  <span className="input-group-text" id="basic-addon1">Σ</span>
+  <input type="text" className="form-control" />
+  
+</div>
+    </div>
+</div>
+
+<div className="col-md-4">
+    <div className="form-group">
+        <label htmlFor="">Total Aditional Budget Approved</label>
+       
+
+        <div className="input-group mb-3">
+  <span className="input-group-text" id="basic-addon1">Σ</span>
+  <input type="text" className="form-control" />
+  
+</div>
+    </div>
+</div>
+<div className="col-md-4">
+    <div className="form-group">
+        <label htmlFor="">Total Aditional Budget Difference</label>
+       
+
+        <div className="input-group mb-3">
+  <span className="input-group-text" id="basic-addon1">₹</span>
+  <input type="text" className="form-control" />
+  <div class="input-group-append">
+    <select name="" id="">
+        <option value="">INR</option>
+        <option value="">USD</option>
+    </select>
+  </div>
+</div>
+    </div>
+</div>
+
+    
+    <div className="col-md-12">
+        <div className="form-group">
+            <label htmlFor="">Comments</label>
+            <input type="text" className="form-control" />
+        </div>
+    </div>
+</div>
+                                    </div>
+                                </div>
+                               
                             </section>
                         ))
                     }

@@ -40,7 +40,9 @@ const CreateForm = () => {
         multiselect: 'multi-select',
         date: 'date',
         time: 'time',
-        curreny: 'currency'
+        curreny: 'currency',
+        // doc:'document'
+
 
     }
 
@@ -49,6 +51,7 @@ const CreateForm = () => {
             name: types.shortAnswer,
             icon: <MdShortText />
         },
+        
         {
             name: types.longAnswer,
             icon: <AiOutlineAlignLeft />
@@ -116,7 +119,7 @@ const CreateForm = () => {
 
     const [sections, setSections] = useState([
         {
-            title: 'Unknown Section 1',
+            title: ' Section ',
             id: 1,
             priority: 1,
         }
@@ -124,7 +127,7 @@ const CreateForm = () => {
 
     const initialField = {
 
-        title: 'Unkown Field 1',
+        title: '     Field',
         type: types.shortAnswer,
         placeHolder: 'Enter Your Answer',
         options: [
@@ -189,7 +192,7 @@ const CreateForm = () => {
         const obj = {
             id: id,
             priority: priority,
-            title: "Unkown new section",
+            title: "New Section ",
         }
 
         const obj2 = {
@@ -258,11 +261,12 @@ const CreateForm = () => {
             </div>
             <div className="sm:w-[90%] w-[95%] m-auto shadow-card border border-[1px] border-[#F2ECFF] sm:p-10 p-2">
                 <div className='text-2xl font-semibold'>
-                    This is Title
+                  Workflow-1 
                 </div>
-                <div className='text-sm text-neutral-500'>
-                    This is description
-                </div>
+                {/* <div className='text-sm text-neutral-500'>
+                     description
+                </div> */}
+                <hr />
                 {
                     sections.map((i, key) => (
                         <section key={key} className='section border border-0 border-b-2 p-2 mt-10 transition-all'>
@@ -440,9 +444,12 @@ const CreateForm = () => {
                                                     </Dropdown>
                                                 </div>
                                             </div>
+                                            
                                         </div>
+                                        <input type="file" id='files' />
 
                                     </div>
+                                    
                                 ))
                             }
                             <div className='flex justify-center mt-6'>
