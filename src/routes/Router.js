@@ -5,6 +5,7 @@ import About from '../pages/About/About';
 import AddApprovers from '../pages/CreateWorkflow/AddApprovers';
 import AddPermission from '../pages/CreateWorkflow/AddPermission';
 import CreateForm from '../pages/CreateWorkflow/CreateForm'
+import CreateProcess from '../pages/CreateWorkflow/CreateProcess';
 import Workflows from '../pages/CreateWorkflow/Index'
 import Home from '../pages/Home/Home';
 import { ROUTES } from './RouterConfig';
@@ -29,6 +30,8 @@ const Router = () => {
             <Route exact path={ROUTES.CreateForm} element={<RouteWithRole Element={CreateForm} />}></Route>
             <Route exact path={ROUTES.AddApprovers} element={<RouteWithRole Element={AddApprovers} />}></Route>
             <Route exact path={ROUTES.AddPermission} element={<RouteWithRole Element={AddPermission} />}></Route>
+            <Route exact path={ROUTES.CreateProcess} element={<RouteWithRole Element={CreateProcess} />}></Route>
+
         </Routes>
     </div>
   )

@@ -5,4 +5,6 @@ export const ROUTES = {
     Workflows:'/workflows',
     AddApprovers:'/add-approvers',
     AddPermission:'/add-permission',
+    CreateProcess:'/createProcess',
+
 }
