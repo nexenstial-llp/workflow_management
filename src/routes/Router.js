@@ -9,6 +9,7 @@ import CreateProcess from '../pages/CreateWorkflow/CreateProcess';
 import Workflows from '../pages/CreateWorkflow/Index'
 import Home from '../pages/Home/Home';
 import { ROUTES } from './RouterConfig';
+import Sidebar from '../components/Sidebar';
 
 const Router = () => {
 
@@ -16,7 +17,14 @@ const Router = () => {
         return (
           <>
           {/* <Navbar/> */}
-            <Element/>
+          <div className='flex gap-3 min-h-screen'>
+            <div className='w-[200px]'>
+              <Sidebar/>
+            </div>
+            <div className='w-full'>
+              <Element/>
+            </div>
+          </div>
           </>
         );
       }
