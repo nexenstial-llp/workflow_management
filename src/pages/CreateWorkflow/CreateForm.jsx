@@ -248,14 +248,14 @@ const CreateForm = () => {
         <div className='CreateForm min-h-screen min-w-screen'>
             <div className='w-full p-3 flex justify-between items-center shadow mb-5'>
                 <div>
-                    Create Form
+                    Create Flow
                 </div>
                 <div className='flex gap-6 items-center'>
                     <button className='border border-[1px] border-neutral-500 bg-white text-neutral-500 rounded p-1 px-3 flex items-center justify-center'>
-                        cancel
+                        Cancel
                     </button>
                     <button onClick={()=>navigate(ROUTES.AddApprovers,{state:{data:{sections,fields}}})} className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
-                        continue
+                        Continue
                     </button>
                 </div>
             </div>

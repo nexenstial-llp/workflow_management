@@ -9,7 +9,7 @@ const Index = () => {
         <div className='container m-auto sm:p-5 p-3'>
             <div className="row">
             <div className="col-md-2">
-                <div onClick={()=>{navigate(ROUTES.CreateProcess)}} className="col-span-1 card shadow-card p-2 aspect-square flex items-center justify-center text-2xl font-bold cursor-pointer">
+                <div onClick={()=>{navigate(ROUTES.SelectStep)}} className="col-span-1 text-center card shadow-card p-2 aspect-square flex items-center justify-center text-2xl font-bold cursor-pointer">
                     Create Workflow
                 </div>
             </div>
