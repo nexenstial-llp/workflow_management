@@ -5,7 +5,7 @@ import About from '../pages/About/About';
 import AddApprovers from '../pages/CreateWorkflow/AddApprovers';
 import AddPermission from '../pages/CreateWorkflow/AddPermission';
 import CreateForm from '../pages/CreateWorkflow/CreateForm'
-import CreateProcess from '../pages/CreateWorkflow/SelectStep';
+import CreateProcess from '../pages/CreateWorkflow/CreateProcess';
 import Workflows from '../pages/CreateWorkflow/Index'
 import Home from '../pages/Home/Home';
 import { ROUTES } from './RouterConfig';
