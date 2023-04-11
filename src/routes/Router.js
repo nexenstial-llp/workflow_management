@@ -10,8 +10,10 @@ import Workflows from '../pages/CreateWorkflow/Index'
 import Home from '../pages/Home/Home';
 import { ROUTES } from './RouterConfig';
 import Sidebar from '../components/Sidebar';
+import Getuser from '../components/User/Retreive/Getuser';
+import Adduser from '../components/User/AddUser/Adduser';
 import SelectStep from '../pages/CreateWorkflow/SelectStep';
-
+import Login from '../pages/Login/Login';
 const Router = () => {
 
     const RouteWithRole = ({ Element }) => {
@@ -40,9 +42,10 @@ const Router = () => {
             <Route exact path={ROUTES.AddApprovers} element={<RouteWithRole Element={AddApprovers} />}></Route>
             <Route exact path={ROUTES.AddPermission} element={<RouteWithRole Element={AddPermission} />}></Route>
             <Route exact path={ROUTES.SelectStep} element={<RouteWithRole Element={SelectStep} />}></Route>
-
             <Route exact path={ROUTES.CreateProcess} element={<RouteWithRole Element={CreateProcess} />}></Route>
-
+            <Route exact path={ROUTES.Login} element={<Login />}></Route>
+            <Route exact path={ROUTES.addUser} element={<Adduser />}></Route>
+            <Route exact path={ROUTES.getUser} element={<Getuser />}></Route>
         </Routes>
     </div>
   )

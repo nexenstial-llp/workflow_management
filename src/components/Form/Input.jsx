@@ -1,24 +1,23 @@
-import React from 'react'
+import React from "react";
 
-const Input = (
-    {
+const Input = ({
   className,
   value,
   onChange,
   defaultValue,
   type,
-  placeholder
+  placeholder,
 }) => {
   return (
-    <input 
-    placeholder={placeholder || 'this is placeholder'} 
-    type={type||"text"} 
-    className={`bg-[#F8FAFC] rounded placeholder:text-[#B8BCCA] text-[#3B4256] p-3 focus:outline-0 focus:border-0 ${className}`}
-    defaultValue={defaultValue}
-    onChange={onChange}
-    value={value}
+    <input
+      placeholder={placeholder || "this is placeholder"}
+      type={type || "text"}
+      className={`bg-[#F8FAFC] rounded placeholder:text-[#B8BCCA] text-[#3B4256] p-3 focus:outline-0 focus:border-0 ${className}`}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      value={value}
     />
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

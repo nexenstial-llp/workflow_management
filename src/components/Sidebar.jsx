@@ -12,7 +12,6 @@ const Sidebar = () => {
         <div className='h-full w-[200px] shadow-card p-3 '>
             <img src="/assets/images/logo.png" className='w-full my-3 mb-5' alt="" />
             <div className='flex flex-col gap-4'>
-
                 <div onClick={() => { navigate(ROUTES.Workflows) }} className='flex items-center gap-3 rounded-lg p-2.5 px-3 bg-[orange] text-white border cursor-pointer shadow'>
                     <AiOutlineHome /> Home
                 </div>
