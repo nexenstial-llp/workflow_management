@@ -19,15 +19,9 @@ const Router = () => {
     const RouteWithRole = ({ Element }) => {
         return (
           <>
-          {/* <Navbar/> */}
-          <div className='flex gap-3 min-h-screen'>
-            <div className='w-[200px]'>
-              <Sidebar/>
-            </div>
             <div className='w-full'>
               <Element/>
             </div>
-          </div>
           </>
         );
       }

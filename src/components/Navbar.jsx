@@ -6,13 +6,11 @@ const Navbar = () => {
     const navigate = useNavigate()
     return (
         <header className="text-gray-600 body-font shadow-card">
-            <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-                <div className='mr-4 text-xl font-bold text-nex'>
-                    Nexenstial
-                </div>
-                <nav className=" flex flex-wrap items-center text-base justify-self-start">
-                    <button onClick={()=>{navigate(ROUTES.Workflows)}} className="mr-5 hover:text-gray-900">Apps</button>
-                </nav>
+            <div className="container mx-auto flex flex-wrap p-[10px] flex-col md:flex-row items-center">
+                
+               
+                    <button onClick={()=>{navigate(ROUTES.Workflows)}} className="ml-auto hover:text-gray-900"><i className="bi bi-box-arrow-left font-semibold text-[22px]"></i></button>
+                
             </div>
         </header>
 

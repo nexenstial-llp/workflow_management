@@ -12,7 +12,7 @@ const Input = ({
     <input
       placeholder={placeholder || "this is placeholder"}
       type={type || "text"}
-      className={`bg-[#F8FAFC] rounded placeholder:text-[#B8BCCA] text-[#3B4256] p-3 focus:outline-0 focus:border-0 ${className}`}
+      className={`bg-[#F8FAFC] rounded placeholder:text-[#B8BCCA] text-[#3B4256] p-[10px] focus:outline-0 focus:border-0 ${className}`}
       defaultValue={defaultValue}
       onChange={onChange}
       value={value}

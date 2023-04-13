@@ -45,14 +45,14 @@ const Login = () => {
   return (
     <div>
       <div className="flex justify-center gap-[3rem] items-center p-8">
-        <p className="text-[3.7rem]">Login</p>
+
       </div>
       <div className="min-h-[70vh] flex items-center">
         <ToastContainer />
         {loading && <Loader />}
         <div className="flex flex-col gap-[10px] card w-[50%] shadow-[0px_0px_8px_rgba(0,0,0,0.1)] bg-[#3c3c3c]/[0.1] py-[100px] px-[20px] rounded-[8px]  mx-auto">
-          <h1 className="text-center text-2xl font-semibold">Login</h1>
-          <div className="flex flex-col gap-[10px] w-[50%] mx-auto">
+          <h1 className="text-center text-2xl font-semibold">LOGIN</h1>
+          <div className="flex flex-col gap-[10px] w-[50%] mt-[60px] mx-auto">
             <Input
               label="Email"
               name="email"

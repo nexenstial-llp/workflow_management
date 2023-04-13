@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Switch from '../../components/Form/Switch';
 import { ROUTES } from '../../routes/RouterConfig';
+import DashboardLayout from '../../components/Dashboard/DashboardLayout';
 
 const AddPermission = () => {
 
@@ -49,8 +50,9 @@ const AddPermission = () => {
 
 
     return (
+        <DashboardLayout>
         <div>
-            <div className='w-full p-3 flex justify-between items-center shadow mb-5'>
+            {/* <div className='w-full p-3 flex justify-between items-center shadow mb-5'>
                 <div>
                     Add Permissions
                 </div>
@@ -62,7 +64,7 @@ const AddPermission = () => {
                         continue
                     </button>
                 </div>
-            </div>
+            </div> */}
             <div className="p-4 grid grid-cols-4 gap-4">
                 <div className="col-span-1 shadow-card p-3 py-6 flex flex-col gap-6">
                     {
@@ -347,7 +349,33 @@ const AddPermission = () => {
 
                 </div>
             </div>
+            <div className="relative ">
+          <div className="footer border-[1px] max-width-[100%] md:w-[80%] w-[100%] fixed bottom-0 shadow-md bg-[#fff] right-[0px] ">
+            <div className="flex justify-between gap-[10px] p-[10px]">
+              <button
+                className=" border-[1px] border-[#000] text-black font-semibold rounded-[8px] px-[20px] py-[10px]"
+                onClick={(e) => {
+                  navigate(ROUTES.AddApprovers);
+                }}
+              >
+                Back
+              </button>
+
+              <button
+                className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
+                onClick={() => {
+                    navigate(ROUTES.AddPermission, {
+                      state: { data: { ...location.state.data, approvers } },
+                    });
+                  }}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
+        </div>
+        </DashboardLayout>
     )
 }
 

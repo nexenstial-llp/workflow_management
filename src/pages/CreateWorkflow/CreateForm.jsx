@@ -22,6 +22,7 @@ import TimePicker from '../../components/Form/TimePicker'
 import Switch from '../../components/Form/Switch'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../routes/RouterConfig'
+import DashboardLayout from '../../components/Dashboard/DashboardLayout'
 
 const CreateForm = () => {
 
@@ -245,8 +246,9 @@ const CreateForm = () => {
 
 
     return (
+        <DashboardLayout>
         <div className='CreateForm min-h-screen min-w-screen'>
-            <div className='w-full p-3 flex justify-between items-center shadow mb-5'>
+            {/* <div className='w-full p-3 flex justify-between items-center shadow mb-5'>
                 <div>
                     Create Flow
                 </div>
@@ -258,7 +260,7 @@ const CreateForm = () => {
                         Continue
                     </button>
                 </div>
-            </div>
+            </div> */}
             <div className="sm:w-[90%] w-[95%] m-auto shadow-card border border-[1px] border-[#F2ECFF] sm:p-10 p-2">
                 <div className='text-2xl font-semibold'>
                   Workflow-1 
@@ -467,7 +469,26 @@ const CreateForm = () => {
                 }
 
             </div>
+
+            <div className="relative ">
+                    <div className="footer border-[1px] max-width-[100%] md:w-[80%] w-[100%] fixed bottom-0 shadow-md bg-[#fff] right-[0px] ">
+                        <div className="flex justify-between gap-[10px] p-[10px]">
+                            <button className=" border-[1px] border-[#000] text-black font-semibold rounded-[8px] px-[20px] py-[10px]" onClick={(e) => {
+                                navigate(ROUTES.CreateProcess)
+                            }}>Back</button>
+
+
+
+                            <button
+                                className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
+                                onClick={()=>navigate(ROUTES.AddApprovers,{state:{data:{sections,fields}}})}
+                            >Next</button>
+
+                        </div>
+                    </div>
+                </div>
         </div>
+        </DashboardLayout>
     )
 }
 

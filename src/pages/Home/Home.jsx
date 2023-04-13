@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/RouterConfig";
+import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Home = () => {
   };
 
   return (
+    <DashboardLayout>
     <div className="Home">
       <div className="container mt-5" style={{ marginTop: "50px" }}>
         <div className="row d-flex justify-content-center align-items-center">
@@ -39,6 +41,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </DashboardLayout>
   );
 };
 

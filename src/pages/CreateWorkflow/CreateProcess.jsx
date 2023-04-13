@@ -2,10 +2,12 @@ import React from 'react'
 
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../routes/RouterConfig'
+import DashboardLayout from '../../components/Dashboard/DashboardLayout'
 
 const CreateProcess = () => {
     const navigate = useNavigate()
   return (
+    <DashboardLayout>
     <div>
         <div className='container m-auto sm:p-5 p-3 mt-5' >
 
@@ -49,6 +51,7 @@ const CreateProcess = () => {
             </div>
         </div>
     </div>
+    </DashboardLayout>
   )
 }
 

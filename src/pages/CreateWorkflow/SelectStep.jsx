@@ -1,4 +1,5 @@
 import React from 'react'
+import DashboardLayout from '../../components/Dashboard/DashboardLayout'
 
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../routes/RouterConfig'
@@ -6,6 +7,7 @@ import { ROUTES } from '../../routes/RouterConfig'
 const SelectStep = () => {
     const navigate = useNavigate()  
   return (
+    <DashboardLayout>
     <div>
         <div className='container m-auto sm:p-5 p-3 mt-5' >
 
@@ -60,6 +62,7 @@ const SelectStep = () => {
             </div>
         </div>
     </div>
+    </DashboardLayout>
   )
 }
 
