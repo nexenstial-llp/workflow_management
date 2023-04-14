@@ -71,7 +71,7 @@ const Login = () => {
             />
           </div>
           <button
-            className="bg-[#F2C347] color-[#333333] w-[50%] mx-auto font-semibold rounded-[4px]  py-[8px] mt-[20px]"
+            className="bg-[#000] text-[#fff] w-[50%] mx-auto font-semibold rounded-[4px]  py-[8px] mt-[20px]"
             onClick={() => {
               handleLogin();
             }}

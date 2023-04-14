@@ -9,7 +9,7 @@ const Navbar = () => {
             <div className="container mx-auto flex flex-wrap p-[10px] flex-col md:flex-row items-center">
                 
                
-                    <button onClick={()=>{navigate(ROUTES.Workflows)}} className="ml-auto hover:text-gray-900"><i className="bi bi-box-arrow-left font-semibold text-[22px]"></i></button>
+                    <button onClick={()=>{navigate(ROUTES.Login)}} className="ml-auto hover:text-gray-900"><i className="bi bi-box-arrow-left font-semibold text-[22px]"></i></button>
                 
             </div>
         </header>
