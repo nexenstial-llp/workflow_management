@@ -129,30 +129,7 @@ const CreateForm = () => {
 
   const [openForEdit, setOpenForEdit] = useState();
 
-  //Object of the form
-  // const [formData, setFormData] = useState([
-  //     {
-  //         title: 'Basic Information',
-  //         id: 1,
-  //         priority: 1,
-  //         items: [
-  //             {
-  //                 id: 1,
-  //                 section_id: 1,
-  //                 type: types.shortAnswer,
-  //                 placeHolder: 'This is placeholder',
-  //                 title: 'What is the name of the item?'
-  //             },
-  //             {
-  //                 id: 2,
-  //                 section_id: 1,
-  //                 type: types.shortAnswer,
-  //                 placeHolder: 'This is placeholder',
-  //                 title: 'What is the name of the item?'
-  //             },
-  //         ]
-  //     }
-  // ])
+  
 
   const [sections, setSections] = useState([
     {
@@ -260,53 +237,31 @@ const CreateForm = () => {
     localStorage.setItem("details", JSON.stringify(array));
   };
 
-  // This function is responsible for editin label
-  // const handleLableChange = (e, section_id, field_id) => {
-  //     const arr = []
-  //     for (const i of formData) {
-  //         let obj = {};
-  //         if (i.id === section_id) {
-  //             const arr2 = []
-  //             for (const j of i.items) {
-  //                 let obj2 = {}
-  //                 if (field_id === j.id) {
-  //                     obj2 = { ...j, title: e.target.value }
-  //                 }
-  //                 else {
-  //                     obj2 = { ...j }
-  //                 }
 
-  //                 arr2.push(obj2)
-  //                 obj = { ...i, items: arr2 }
-  //             }
-  //         }
-  //         else {
-  //             obj = { ...i }
-  //         }
-  //         arr.push(obj)
-  //     }
 
-  //     setFormData(arr)
-  // }
 
-  console.log(date, time, currency);
+  const handleSubmit = () => {
+    console.log(sections, fields);
+    // navigate(ROUTES.AddApprovers, {
+    //   state: { data: { sections, fields } },
+    // })
 
+    const newArr = [...sections]
+
+    newArr.map((i, key) => {
+      i.fields = fields.filter((f) => f.section_id == i.id);
+    }
+    )
+
+    console.log(newArr)
+
+  }
+
+  
   return (
     <DashboardLayout>
       <div className="CreateForm min-h-screen min-w-screen">
-        {/* <div className='w-full p-3 flex justify-between items-center shadow mb-5'>
-                <div>
-                    Create Flow
-                </div>
-                <div className='flex gap-6 items-center'>
-                    <button className='border border-[1px] border-neutral-500 bg-white text-neutral-500 rounded p-1 px-3 flex items-center justify-center'>
-                        Cancel
-                    </button>
-                    <button onClick={()=>navigate(ROUTES.AddApprovers,{state:{data:{sections,fields}}})} className='bg-blue-600 text-neutral-100 rounded p-1 px-3'>
-                        Continue
-                    </button>
-                </div>
-            </div> */}
+       
         <div className="sm:w-[90%] w-[95%] m-auto shadow-card border border-[1px] border-[#F2ECFF] sm:p-10 p-2">
           <div className="text-2xl font-semibold">{process_name.name}</div>
           {/* <div className='text-sm text-neutral-500'>
@@ -669,9 +624,9 @@ const CreateForm = () => {
               <button
                 className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
                 onClick={() =>
-                  navigate(ROUTES.AddApprovers, {
-                    state: { data: { sections, fields } },
-                  })
+                  {
+                    handleSubmit()
+                  }
                 }
               >
                 Next
