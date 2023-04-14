@@ -22,7 +22,7 @@ const Adduser = () => {
   const [phone, setPhone] = useState();
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const options = [
     {
@@ -61,7 +61,11 @@ const Adduser = () => {
 
   const submit = async () => {
     if (
-      !details.name || !details.email || !details.password || !details.role  || !phone
+      !details.name ||
+      !details.email ||
+      !details.password ||
+      !details.role ||
+      !phone
     ) {
       toast.error("All Fields are required !", {
         position: toast.POSITION.TOP_RIGHT,
@@ -71,12 +75,12 @@ const Adduser = () => {
     try {
       setLoading(true);
       const data = await userApi.addUsers({ ...details, phone });
-      
+
       if (data.success) {
         toast.success("Succesfully Added User !", {
           position: toast.POSITION.TOP_RIGHT,
         });
-        navigate(ROUTES.getUser)
+        navigate(ROUTES.getUser);
         clear();
       }
     } catch (err) {
@@ -86,7 +90,6 @@ const Adduser = () => {
     } finally {
       setLoading(false);
     }
-    
   };
 
   function info(name, value) {
@@ -101,7 +104,9 @@ const Adduser = () => {
       <div className="h-[100vh] container flex flex-col">
         <ToastContainer />
         {loading && <Loader />}
-        <h2 className='font-semibold text-[var(--secondary)] mt-[30px] text-[18px]'>Add Employee</h2>
+        <h2 className="font-semibold text-[var(--secondary)] mt-[30px] text-[18px]">
+          Add Employee
+        </h2>
         <div className="grid grid-cols-2 mt-[45px] w-[100%] gap-[15px]">
           <div className="col-span-1">
             <Input
@@ -145,7 +150,6 @@ const Adduser = () => {
               value={details.password}
             />
           </div>
-
           <div className="col-span-1 flex flex-col">
             <label className="text-[#333333] opacity-70  text-[16px]">
               Role
@@ -160,25 +164,28 @@ const Adduser = () => {
           </div>
         </div>
         <div className="relative ">
-                    <div className="footer border-[1px] max-width-[100%] md:w-[80%] w-[100%] fixed bottom-0 shadow-md bg-[#fff] right-[0px] ">
-                        <div className="flex justify-between gap-[10px] p-[10px]">
-                            <button className=" text-black font-semibold rounded-[8px] px-[20px] py-[10px]" onClick={(e) => {
-                                navigate(ROUTES.getUser)
-                            }}>Cancel</button>
+          <div className="footer border-[1px] max-width-[100%] md:w-[80%] w-[100%] fixed bottom-0 shadow-md bg-[#fff] right-[0px] ">
+            <div className="flex justify-between gap-[10px] p-[10px]">
+              <button
+                className=" text-black font-semibold rounded-[8px] px-[20px] py-[10px]"
+                onClick={(e) => {
+                  navigate(ROUTES.getUser);
+                }}
+              >
+                Cancel
+              </button>
 
-
-
-
-                            <button
-                                className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
-                            onClick={(e) => {
-                              submit(e)
-                            }}
-                            >Save</button>
-
-                        </div>
-                    </div>
-                </div>
+              <button
+                className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
+                onClick={(e) => {
+                  submit(e);
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </DashboardLayout>
   );
