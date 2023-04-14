@@ -260,6 +260,7 @@ const CreateForm = () => {
       delete item?.options
       delete item?.required;
       delete item?.placeHolder
+      
       // delete item?.title
       delete item?.type
       // item.required = Boolean(item.required)
@@ -267,15 +268,17 @@ const CreateForm = () => {
     });
 
     newArr.map((i, key) => {
+      i.description = '';
+      
       delete i.id;
       delete i.priority;
+
 
       i.fields = newFields?.filter((f) => f.section_id == i.id);
       // delete i?.fields
     });
 
-    console.log(newArr);
-
+console.log(newArr)
     try {
       let data = await processapi.updateProcesses({ id, newArr });
       if (data.success) {
