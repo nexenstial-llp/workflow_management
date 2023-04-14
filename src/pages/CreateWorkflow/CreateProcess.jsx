@@ -1,31 +1,62 @@
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { processapi } from "../../apis/Process/Process";
 import { ROUTES } from "../../routes/RouterConfig";
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "../../components/Loader/Loader";
 
 const CreateProcess = () => {
   const navigate = useNavigate();
 
-  const [details,setDetails] = useState({
-    name:"",
-    desc:"",
-  }); 
+  const [details, setDetails] = useState({
+    name: "",
+    desc: "",
+  });
 
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     const newData = { ...details };
     newData[e.target.name] = e.target.value;
     setDetails(newData);
-  } 
+  };
 
-  const next = () =>{
-    localStorage.setItem("process",JSON.stringify(details));
-    navigate(ROUTES.CreateForm);
-  }
+  const [route, setRoute] = useState(ROUTES.CreateForm);
+  const [loading, setLoading] = useState(false);
+
+  const next = async () => {
+    if (details.name == "" || details.desc == "") {
+      toast.error("All Fields are required !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+    try {
+      setLoading(true);
+      let data = await processapi.addprocesses(details);
+      console.log(data.data._id);
+      if (data.success) {
+        toast.success("Succesfully Added Process !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+      localStorage.setItem("process", JSON.stringify(details));
+      navigate(`${route}?id=${data.data._id}`);
+    } catch (err) {
+      toast.error("Something went wrong !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <DashboardLayout>
       <div>
+        <ToastContainer />
+        {loading && <Loader />}
         <div className="container m-auto sm:p-5 p-3 mt-5">
           <div
             className="row d-flex justify-content-center align-items-center"
@@ -41,11 +72,23 @@ const CreateProcess = () => {
                 <div className="card-body p-3">
                   <div className="form-group">
                     <label htmlFor="">Process Name</label>
-                    <input type="text" name="name" onChange={handleChange} value={details.name} className="form-control" />
+                    <input
+                      type="text"
+                      name="name"
+                      onChange={handleChange}
+                      value={details.name}
+                      className="form-control"
+                    />
                   </div>
                   <div className="form-group">
                     <label htmlFor="">Description</label>
-                    <input type="text" name="desc" onChange={handleChange} value={details.desc} className="form-control" />
+                    <input
+                      type="text"
+                      name="desc"
+                      onChange={handleChange}
+                      value={details.desc}
+                      className="form-control"
+                    />
                   </div>
                   <button
                     onClick={() => next()}

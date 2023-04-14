@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Input from "../../Input/Input";
 import { userApi } from "../../../apis/User/User";
-import { toast, ToastContainer } from "react-toastify";
 import Loader from "../../Loader/Loader";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { Select, Modal } from "antd";
@@ -41,11 +41,6 @@ const Adduser = () => {
     newData[e.target.name] = e.target.value;
     setDetails(newData);
     console.log(details);
-  };
-
-  const change = (e) => {
-    setFile(e.target.files[0]);
-    console.log(file);
   };
 
   const clear = () => {

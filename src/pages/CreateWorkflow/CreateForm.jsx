@@ -1,7 +1,11 @@
 import React, { useState, useTransition } from "react";
 import EditableLabel from "../../components/Form/EditableLabel";
+import { processapi } from "../../apis/Process/Process";
 import Input from "../../components/Form/Input";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Dropdown } from "antd";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //Icons
 import { BsCurrencyRupee, BsThreeDotsVertical, BsTrash } from "react-icons/bs";
@@ -33,6 +37,11 @@ import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 const CreateForm = () => {
   //Hooks
   const navigate = useNavigate();
+
+  const params = useParams();
+  const [searchParams] = useSearchParams();
+
+  let id = searchParams.get("id");
 
   //Declaring string in variables to avoid typos
   const types = {
@@ -129,8 +138,6 @@ const CreateForm = () => {
 
   const [openForEdit, setOpenForEdit] = useState();
 
-  
-
   const [sections, setSections] = useState([
     {
       title: " Section ",
@@ -140,7 +147,7 @@ const CreateForm = () => {
   ]);
 
   const initialField = {
-    title: "     Field",
+    title: "Field",
     type: types.shortAnswer,
     placeHolder: "Enter Your Answer",
     options: [
@@ -231,37 +238,63 @@ const CreateForm = () => {
       currency,
     };
     array.push({
-          title:title,
-          details:obj
+      title: title,
+      details: obj,
     });
     localStorage.setItem("details", JSON.stringify(array));
   };
 
-
-
-
-  const handleSubmit = () => {
-    console.log(sections, fields);
+  const handleSubmit = async () => {
+    console.log(sections);
     // navigate(ROUTES.AddApprovers, {
     //   state: { data: { sections, fields } },
     // })
 
-    const newArr = [...sections]
+    const newArr = [...sections];
+
+    const newFields = fields?.map((item) => {
+      console.log(fields);
+      delete item?.id;
+      delete item?.section_id;
+      //  item.options = item?.options?.map(item1 => (item1?.value || ''))
+      delete item?.options
+      delete item?.required;
+      delete item?.placeHolder
+      // delete item?.title
+      delete item?.type
+      // item.required = Boolean(item.required)
+      return item;
+    });
 
     newArr.map((i, key) => {
-      i.fields = fields.filter((f) => f.section_id == i.id);
+      delete i.id;
+      delete i.priority;
+
+      i.fields = newFields?.filter((f) => f.section_id == i.id);
+      // delete i?.fields
+    });
+
+    console.log(newArr);
+
+    try {
+      let data = await processapi.updateProcesses({ id, newArr });
+      if (data.success) {
+        toast.success("Succesfully Updated Process !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+    } catch (err) {
+      toast.error("Something went wrong !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      console.log(err);
+    } finally {
     }
-    )
+  };
 
-    console.log(newArr)
-
-  }
-
-  
   return (
     <DashboardLayout>
       <div className="CreateForm min-h-screen min-w-screen">
-       
         <div className="sm:w-[90%] w-[95%] m-auto shadow-card border border-[1px] border-[#F2ECFF] sm:p-10 p-2">
           <div className="text-2xl font-semibold">{process_name.name}</div>
           {/* <div className='text-sm text-neutral-500'>
@@ -315,43 +348,34 @@ const CreateForm = () => {
                         />
                         {j.type == types.longAnswer ? (
                           <TextArea
+                            value={j.placeHolder}
                             name="longans"
-                            value={longans.ans}
-                            onChange={(value) =>
-                              setLongans({
-                                ...longans,
-                                title: j.title,
-                                ans: value,
-                              })
-                            }
+                            onChange={(value) => {
+                              j.placeHolder = value;
+                              setFlag((prev) => !prev);
+                            }}
                             className={"h-auto"}
                           />
                         ) : j.type == types.shortAnswer ? (
                           <Input
-                            value={shortans.ans}
+                            value={j.placeHolder}
                             name="shortans"
                             type="text"
-                            onChange={(e) =>
-                              setShortans({
-                                ...shortans,
-                                title: j.title,
-                                ans: e.target.value,
-                              })
-                            }
+                            onChange={(e) => {
+                              j.placeHolder = e.target.value;
+                              setFlag((prev) => !prev);
+                            }}
                             placeholder={j.placeHolder}
                           />
                         ) : j.type == types.numeric ? (
                           <Input
                             type="number"
                             name="numeric"
-                            value={numeric.ans}
-                            onChange={(e) =>
-                              setNumeric({
-                                ...numeric,
-                                title: j.title,
-                                ans: e.target.value,
-                              })
-                            }
+                            value={j.placeHolder}
+                            onChange={(e) => {
+                              j.placeHolder = e.target.value;
+                              setFlag((prev) => !prev);
+                            }}
                             placeholder={j.placeHolder}
                           />
                         ) : j.type == types.checkBox ? (
@@ -458,32 +482,25 @@ const CreateForm = () => {
                           <DatePicker
                             value={date.ans}
                             onChange={(value) => {
-                              setDate({
-                                ...date,
-                                title: j.title,
-                                ans: value.$d,
-                              });
+                              j.placeHolder = value.$d;
+                              setFlag((prev) => !prev);
                             }}
                           />
                         ) : j.type == types.time ? (
                           <TimePicker
                             value={time.ans}
                             onChange={(value) => {
-                              setTime({
-                                ...time,
-                                title: j.title,
-                                ans: value.$d,
-                              });
+                              j.placeHolder = value.$d;
+                              setFlag((prev) => !prev);
                             }}
                           />
                         ) : (
                           <Input
-                            value={currency.ans}
-                            onChange={(e) => setCurrency({
-                              ...currency,
-                              title:j.title,
-                              ans:e.target.value
-                            })}
+                            value={j.placeHolder}
+                            onChange={(e) => {
+                              j.placeHolder = e.target.value;
+                              setFlag((prev) => !prev);
+                            }}
                             name="currency"
                             placeholder={j.placeHolder}
                           />
@@ -623,11 +640,9 @@ const CreateForm = () => {
 
               <button
                 className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
-                onClick={() =>
-                  {
-                    handleSubmit()
-                  }
-                }
+                onClick={() => {
+                  handleSubmit();
+                }}
               >
                 Next
               </button>

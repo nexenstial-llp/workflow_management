@@ -15,7 +15,7 @@ const Input = ({
       className={`bg-[#F8FAFC] rounded placeholder:text-[#B8BCCA] text-[#3B4256] p-[10px] focus:outline-0 focus:border-0 ${className}`}
       defaultValue={defaultValue}
       onChange={onChange}
-      value={value || ""}
+      value={value}
     />
   );
 };

@@ -20,7 +20,6 @@ const TextArea = ({
     defaultValue={defaultValue}
     onChange={(e) => onChange(e)}
     value={value}
-    readOnly={readOnly}
     />
   )
 }
