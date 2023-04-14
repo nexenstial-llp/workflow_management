@@ -18,7 +18,7 @@ const TextArea = ({
     type={type||"text"} 
     className={` rounded placeholder:text-[#B8BCCA] text-[#3B4256] focus:outline-0 focus:border-0 mb-5 ${className}`}
     defaultValue={defaultValue}
-    onChange={onChange}
+    onChange={(e) => onChange(e)}
     value={value}
     readOnly={readOnly}
     />
