@@ -29,15 +29,12 @@ export const processapi = {
     return response.data;
   },
 
-  updateProcesses: async (queries, cancel = false) => {
-    console.log(queries);
-    let id = queries.id;
+  updateProcesses: async (id, data, cancel = false) => {
+   
     const response = await api.request({
       url: `api/process/update/${id}`,
       method: "PUT",
-      data:{
-        section:queries.newArr
-    },
+      data:data,
       signal: cancel
         ? defineCancelApiObject[this.get.name].handleRequestCancellation()
             .signal

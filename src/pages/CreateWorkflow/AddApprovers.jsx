@@ -1,16 +1,30 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import Modal from "../../components/Partials/Modal";
 import { Dropdown, Select, Space } from "antd";
 import Switch from "../../components/Form/Switch";
 import EditableLabel from "../../components/Form/EditableLabel";
 import { ROUTES } from "../../routes/RouterConfig";
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
+import { userApi } from "../../apis/User/User";
+import { processapi } from "../../apis/Process/Process";
+import { ToastContainer, toast } from "react-toastify";
 const { Option } = Select;
+
+
+const approvalTypeMap = {
+  "Configure your workflow" : "create",
+   "Approval Step": "approval",
+  "Input Step" : "input",
+};
 
 const AddApprovers = () => {
   //Modal Options
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [searchParams] = useSearchParams();
+
+  let id = searchParams.get("id");
 
   const handleCancelModal = () => {
     setIsModalOpen(false);
@@ -34,20 +48,35 @@ const AddApprovers = () => {
   };
 
   //Initial data
-  const options = [
-    {
-      label: "srinivas@nexenstial.com",
-      value: "srinivas",
-    },
-    {
-      label: "guru@nexenstial.com",
-      value: "guru",
-    },
-    {
-      label: "abhishek@nexenstial.com",
-      value: "abhishek",
-    },
-  ];
+  // const options = [
+  //   {
+  //     label: "srinivas@nexenstial.com",
+  //     value: "srinivas",
+  //   },
+  //   {
+  //     label: "guru@nexenstial.com",
+  //     value: "guru",
+  //   },
+  //   {
+  //     label: "abhishek@nexenstial.com",
+  //     value: "abhishek",
+  //   },
+  // ];
+
+const [options, setOptions] = useState([]);
+
+ const  getUsers = async () => {
+    try {
+      let data = await userApi.getUsers();
+      console.log(data);
+      if (data.success) {
+        setOptions(data.data?.map((item) => ({ label: item.email, value: item._id })));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   const [approvers, setApprovers] = useState([
     {
@@ -100,9 +129,57 @@ const AddApprovers = () => {
       users: value,
     }));
   };
+
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const handleSubmit = async(e) => {
+    
+    localStorage.setItem("approvers", JSON.stringify(approvers));
+
+    const newData = approvers.map((item) => {
+      return {
+        access_to_all: item.accessToAll,
+        title: item.title,
+        type_of_approval: approvalTypeMap[item.type],
+        users: item.users,
+      };
+    });
+
+    try {
+      let data = await processapi.updateProcesses( id, {approvals: newData} );
+      if (data.success) {
+        toast.success("Succesfully Updated Process !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        navigate(`${ROUTES?.AddPermission}?id=${id}`);
+      }
+    } catch (err) {
+      toast.error("Something went wrong !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      console.log(err);
+    } finally {
+    }
+
+  };
+
+  useEffect(() => {
+    
+      const data = localStorage.getItem("approvers");
+      if (data) {
+        setApprovers(JSON.parse(data));
+      }
+  
+  }, []);
+
+
   return (
     <DashboardLayout>
       <div className="AddApprovers min-h-screen min-w-screen pb-[200px]">
+        <ToastContainer />
         <Modal
           title={editData.title}
           isModalOpen={isModalOpen}
@@ -132,12 +209,12 @@ const AddApprovers = () => {
             }}
             disabled={editData.accessToAll}
             placeholder="Add  Email"
-            defaultValue={[options[0].value]}
+            defaultValue={[options[0]?.value]}
             onChange={handleChange}
             value={editData.users}
           >
             {options.map((i, key) => (
-              <Option key={key} value={i.value} label={i.label}>
+              <Option key={key} value={i?.value} label={i?.label}>
                 {i.label}
               </Option>
             ))}
@@ -193,16 +270,16 @@ const AddApprovers = () => {
                 }}
                 className="text-xl font-medium w-[100%]"
               />
-              <div className="text-xsm text-neutral-500">{i.type}</div>
+              <div className="text-xsm text-neutral-500">{i?.type}</div>
               <div className="flex justify-between mt-4">
                 <div className="text-sm text-neutral-700">
                   {i.accessToAll ? (
                     "Everyone"
                   ) : (
                     <ol>
-                      {i.users.length != 0
-                        ? i.users.map((j, key2) => (
-                            <li>{options.find((s) => s.value == j).label}</li>
+                      {i?.users.length != 0
+                        ? i?.users.map((j, key2) => (
+                            <li>{options?.find((s) => s?.value == j)?.label}</li>
                           ))
                         : "No user added"}
                     </ol>
@@ -278,10 +355,8 @@ const AddApprovers = () => {
 
               <button
                 className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
-                onClick={() => {
-                    navigate(ROUTES.AddPermission, {
-                      state: { data: { ...location.state.data, approvers } },
-                    });
+                onClick={(e) => {
+                  handleSubmit(e);
                   }}
               >
                 Next

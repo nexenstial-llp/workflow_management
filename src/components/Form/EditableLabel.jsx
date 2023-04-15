@@ -14,6 +14,7 @@ const EditableLabel = ({
     defaultValue={defaultValue}
     onChange={onChange}
     value={value}
+    placeholder='Enter Input Label'
     type="text"
     />
   )

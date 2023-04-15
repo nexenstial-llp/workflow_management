@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import EditableLabel from "../../components/Form/EditableLabel";
 import { processapi } from "../../apis/Process/Process";
 import Input from "../../components/Form/Input";
@@ -250,41 +250,44 @@ const CreateForm = () => {
     //   state: { data: { sections, fields } },
     // })
 
+    localStorage.setItem("sections", JSON.stringify(sections));
+    localStorage.setItem("fields", JSON.stringify(fields));
+
     const newArr = [...sections];
 
     const newFields = fields?.map((item) => {
-      console.log(fields);
-      delete item?.id;
-      delete item?.section_id;
-      //  item.options = item?.options?.map(item1 => (item1?.value || ''))
-      delete item?.options
-      delete item?.required;
-      delete item?.placeHolder
       
-      // delete item?.title
-      delete item?.type
-      // item.required = Boolean(item.required)
+      delete item?.id;
+       item.options = item?.options?.map(item1 => (item1?.value || '')) || []
+       item.type_of_field = item?.type
+       delete item.type
+
       return item;
     });
 
     newArr.map((i, key) => {
       i.description = '';
-      
-      delete i.id;
+
+     
       delete i.priority;
 
 
-      i.fields = newFields?.filter((f) => f.section_id == i.id);
-      // delete i?.fields
+      i.fields = newFields?.filter((f) => {if(f.section_id == i.id){
+        delete f.section_id
+        return f
+      }});
+
+      delete i.id;
     });
 
-console.log(newArr)
+
     try {
-      let data = await processapi.updateProcesses({ id, newArr });
+      let data = await processapi.updateProcesses( id, {section: newArr} );
       if (data.success) {
         toast.success("Succesfully Updated Process !", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        navigate(`${ROUTES?.AddApprovers}?id=${id}`);
       }
     } catch (err) {
       toast.error("Something went wrong !", {
@@ -295,19 +298,34 @@ console.log(newArr)
     }
   };
 
+  useEffect(() => {
+    const data = localStorage.getItem("sections");
+    const data2 = localStorage.getItem("fields");
+    if (data) {
+      setSections(JSON.parse(data));
+    }
+    if (data2) {
+      setFields(JSON.parse(data2));
+    }
+  }, []);
+
+
   return (
     <DashboardLayout>
-      <div className="CreateForm min-h-screen min-w-screen">
+      <div className="CreateForm min-h-screen min-w-screen mb-[100px] m">
         <div className="sm:w-[90%] w-[95%] m-auto shadow-card border border-[1px] border-[#F2ECFF] sm:p-10 p-2">
           <div className="text-2xl font-semibold">{process_name.name}</div>
-          {/* <div className='text-sm text-neutral-500'>
-                     description
-                </div> */}
+          <div className='text-sm text-neutral-500'>
+                     {process_name.desc}
+                </div>
           <hr />
+          <div className="flex flex-col gap-[20px]">
+
+       
           {sections.map((i, key) => (
             <section
               key={key}
-              className="section border-0 border-b-2 p-2 mt-10 transition-all"
+              className="section border-[1px]  border-b-2 p-2 mt-10 transition-all"
             >
               <div className="flex">
                 <EditableLabel
@@ -611,7 +629,7 @@ console.log(newArr)
                     onClick={() => {
                       addField(i.id);
                     }}
-                    className="bg-blue-600 text-neutral-100 rounded p-1 px-3"
+                    className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
                   >
                     Add field
                   </button>
@@ -619,7 +637,7 @@ console.log(newArr)
                     onClick={() => {
                       addSection(1);
                     }}
-                    className="bg-blue-600 text-neutral-100 rounded p-1 px-3"
+                    className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
                   >
                     Add Section
                   </button>
@@ -627,6 +645,7 @@ console.log(newArr)
               </div>
             </section>
           ))}
+             </div>
         </div>
 
         <div className="relative">
