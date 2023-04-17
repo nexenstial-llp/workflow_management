@@ -9,5 +9,7 @@ export const ROUTES = {
     CreateProcess:'/createProcess',
     Login:"/login",
     addUser:"/users/add",
-    getUser:'/users'
+    getUser:'/users',
+    getProcess:"/getprocess",
+    editProcess:"/editprocess"
 }

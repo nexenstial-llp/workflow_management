@@ -2,10 +2,12 @@ import React from 'react'
 import { DatePicker as Date } from 'antd'
 
 const DatePicker = ({
-    onChange
+    onChange,
+    value,
+    yes,
 }) => {
   return (
-    <Date onChange={onChange} />
+    <Date onChange={onChange} placeholder={value} disabled={yes} inputReadOnly={yes}/>
   )
 }
 

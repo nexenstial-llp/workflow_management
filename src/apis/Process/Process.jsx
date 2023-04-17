@@ -12,13 +12,12 @@ export const processapi = {
             .signal
         : undefined,
     });
-    console.log(response.data.data);
     return response.data;
   },
 
   getProcesses: async (queries, cancel = false) => {
     const response = await api.request({
-      url: "api/user/get/processes",
+      url: "api/process/get",
       method: "GET",
       signal: cancel
         ? defineCancelApiObject[this.get.name].handleRequestCancellation()
@@ -35,6 +34,19 @@ export const processapi = {
       url: `api/process/update/${id}`,
       method: "PUT",
       data:data,
+      signal: cancel
+        ? defineCancelApiObject[this.get.name].handleRequestCancellation()
+            .signal
+        : undefined,
+    });
+    console.log(response.data.data);
+    return response.data;
+  },
+
+  getprocessbyId: async (id,cancel = false) => {
+    const response = await api.request({
+      url: `api/process/get/${id}`,
+      method: "GET",
       signal: cancel
         ? defineCancelApiObject[this.get.name].handleRequestCancellation()
             .signal

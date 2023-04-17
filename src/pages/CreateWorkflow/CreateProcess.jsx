@@ -13,7 +13,7 @@ const CreateProcess = () => {
 
   const [details, setDetails] = useState({
     name: "",
-    desc: "",
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -21,6 +21,8 @@ const CreateProcess = () => {
     newData[e.target.name] = e.target.value;
     setDetails(newData);
   };
+
+  console.log(details);
 
   const [route, setRoute] = useState(ROUTES.CreateForm);
   const [loading, setLoading] = useState(false);
@@ -36,24 +38,24 @@ const CreateProcess = () => {
     localStorage.setItem("process", JSON.stringify(details));
     navigate(`${route}`);
 
-    // try {
-    //   setLoading(true);
-    //   let data = await processapi.addprocesses(details);
-    //   console.log(data.data._id);
-    //   if (data.success) {
-    //     toast.success("Succesfully Added Process !", {
-    //       position: toast.POSITION.TOP_RIGHT,
-    //     });
-    //   }
-    //   localStorage.setItem("process", JSON.stringify(details));
-    //   navigate(`${route}?id=${data.data._id}`);
-    // } catch (err) {
-    //   toast.error("Something went wrong !", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //   });
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      setLoading(true);
+      let data = await processapi.addprocesses(details);
+      console.log(data.data._id);
+      if (data.success) {
+        toast.success("Succesfully Added Process !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+      localStorage.setItem("process", JSON.stringify(details));
+      navigate(`${route}?id=${data.data._id}`);
+    } catch (err) {
+      toast.error("Something went wrong !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -88,9 +90,9 @@ const CreateProcess = () => {
                     <label htmlFor="">Description</label>
                     <input
                       type="text"
-                      name="desc"
+                      name="description"
                       onChange={handleChange}
-                      value={details.desc}
+                      value={details.description}
                       className="form-control"
                     />
                   </div>

@@ -5,6 +5,7 @@ const Input = ({
   value,
   onChange,
   defaultValue,
+  readOnly,
   type,
   placeholder,
 }) => {
@@ -16,6 +17,7 @@ const Input = ({
       defaultValue={defaultValue}
       onChange={onChange}
       value={value}
+      readOnly={readOnly}
     />
   );
 };
