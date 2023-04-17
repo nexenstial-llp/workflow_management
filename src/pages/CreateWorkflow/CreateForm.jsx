@@ -88,7 +88,6 @@ const CreateForm = () => {
     ans: "",
   });
 
-  console.log(title);
 
   let process_name = JSON.parse(localStorage.getItem("process"));
 
@@ -140,7 +139,7 @@ const CreateForm = () => {
 
   const [sections, setSections] = useState([
     {
-      title: " Section ",
+      title: "Section ",
       id: 1,
       priority: 1,
     },
@@ -253,49 +252,51 @@ const CreateForm = () => {
     localStorage.setItem("sections", JSON.stringify(sections));
     localStorage.setItem("fields", JSON.stringify(fields));
 
-    const newArr = [...sections];
+    navigate(`${ROUTES?.AddApprovers}`);
 
-    const newFields = fields?.map((item) => {
+    // const newArr = [...sections];
+
+    // const newFields = fields?.map((item) => {
       
-      delete item?.id;
-       item.options = item?.options?.map(item1 => (item1?.value || '')) || []
-       item.type_of_field = item?.type
-       delete item.type
+      
+    //    item.options = item?.options?.map(item1 => (item1?.value || '')) || []
+    //    item.type_of_field = item?.type
+    //    delete item.type
 
-      return item;
-    });
+    //   return item;
+    // });
 
-    newArr.map((i, key) => {
-      i.description = '';
+    // newArr.map((i, key) => {
+    //   i.description = '';
 
      
-      delete i.priority;
+    //   delete i.priority;
 
 
-      i.fields = newFields?.filter((f) => {if(f.section_id == i.id){
-        delete f.section_id
-        return f
-      }});
+    //   i.fields = newFields?.filter((f) => {if(f.section_id == i.id){
+    //     delete f.section_id
+    //     return f
+    //   }});
 
-      delete i.id;
-    });
+    //   delete i.id;
+    // });
 
 
-    try {
-      let data = await processapi.updateProcesses( id, {section: newArr} );
-      if (data.success) {
-        toast.success("Succesfully Updated Process !", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        navigate(`${ROUTES?.AddApprovers}?id=${id}`);
-      }
-    } catch (err) {
-      toast.error("Something went wrong !", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      console.log(err);
-    } finally {
-    }
+    // try {
+    //   let data = await processapi.updateProcesses( id, {section: newArr} );
+    //   if (data.success) {
+    //     toast.success("Succesfully Updated Process !", {
+    //       position: toast.POSITION.TOP_RIGHT,
+    //     });
+    //     navigate(`${ROUTES?.AddApprovers}?id=${id}`);
+    //   }
+    // } catch (err) {
+    //   toast.error("Something went wrong !", {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   });
+    //   console.log(err);
+    // } finally {
+    // }
   };
 
   useEffect(() => {
@@ -308,6 +309,8 @@ const CreateForm = () => {
       setFields(JSON.parse(data2));
     }
   }, []);
+
+  
 
 
   return (

@@ -138,31 +138,31 @@ const [options, setOptions] = useState([]);
   const handleSubmit = async(e) => {
     
     localStorage.setItem("approvers", JSON.stringify(approvers));
-
-    const newData = approvers.map((item) => {
-      return {
-        access_to_all: item.accessToAll,
-        title: item.title,
-        type_of_approval: approvalTypeMap[item.type],
-        users: item.users,
-      };
-    });
-
-    try {
-      let data = await processapi.updateProcesses( id, {approvals: newData} );
-      if (data.success) {
-        toast.success("Succesfully Updated Process !", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        navigate(`${ROUTES?.AddPermission}?id=${id}`);
-      }
-    } catch (err) {
-      toast.error("Something went wrong !", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      console.log(err);
-    } finally {
-    }
+    
+    navigate(`${ROUTES?.AddPermission}?id=${id}`);
+    // const newData = approvers.map((item) => {
+    //   return {
+    //     access_to_all: item.accessToAll,
+    //     title: item.title,
+    //     type_of_approval: approvalTypeMap[item.type],
+    //     users: item.users,
+    //   };
+    // });
+    
+    // try {
+    //   let data = await processapi.updateProcesses( id, {approvals: newData} );
+    //   if (data.success) {
+    //     toast.success("Succesfully Updated Process !", {
+    //       position: toast.POSITION.TOP_RIGHT,
+    //     });
+    //   }
+    // } catch (err) {
+    //   toast.error("Something went wrong !", {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   });
+    //   console.log(err);
+    // } finally {
+    // }
 
   };
 
