@@ -121,7 +121,7 @@ const [options, setOptions] = useState([]);
 
   const navigate = useNavigate();
 
-  //Helper FUnction
+  //Helper Function
   const handleChange = (value) => {
     console.log(value);
     setEditData((prev) => ({

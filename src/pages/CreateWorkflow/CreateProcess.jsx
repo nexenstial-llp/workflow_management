@@ -75,12 +75,13 @@ const CreateProcess = () => {
                     Create Process
                   </h1>
                 </div>
-                <div className="card-body p-3">
+                <div className="card-body p-3 flex gap-[10px] flex-col">
                   <div className="form-group">
                     <label htmlFor="">Process Name</label>
                     <input
                       type="text"
                       name="name"
+                      placeholder="Enter Process Name"
                       onChange={handleChange}
                       value={details.name}
                       className="form-control"
@@ -91,6 +92,7 @@ const CreateProcess = () => {
                     <input
                       type="text"
                       name="description"
+                      placeholder="Enter Description"
                       onChange={handleChange}
                       value={details.description}
                       className="form-control"
@@ -98,7 +100,7 @@ const CreateProcess = () => {
                   </div>
                   <button
                     onClick={() => next()}
-                    className="btn btn-success cursor-pointer float-right"
+                    className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px] "
                   >
                     Next
                   </button>

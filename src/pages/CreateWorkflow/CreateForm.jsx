@@ -215,35 +215,44 @@ const CreateForm = () => {
     localStorage.setItem("sections", JSON.stringify(newsections));
     localStorage.setItem("fields", JSON.stringify(newFields));
 
-    const data = localStorage.getItem("sections");
-    const data2 = localStorage.getItem("fields");
-    if (data) {
-      setSections(JSON.parse(data));
-    }
-    if (data2) {
-      setFields(JSON.parse(data2));
-    }
+    navigate(`${ROUTES?.AddApprovers}?id=${id}`);
+    // const data = localStorage.getItem("sections");
+    // const data2 = localStorage.getItem("fields");
+    // if (data) {
+    //   setSections(JSON.parse(data));
+    // }
+    // if (data2) {
+    //   setFields(JSON.parse(data2));
+    // }
 
-    try {
-      let data = await processapi.updateProcesses(id, { section: newsections });
-      if (data.success) {
-        toast.success("Succesfully Updated Process !", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        navigate(`${ROUTES?.AddApprovers}?id=${id}`);
-      }
-      navigate(`${ROUTES?.AddApprovers}`);
-    } catch (err) {
-      toast.error("Something went wrong !", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      console.log(err);
-    } finally {
-    }
+    // try {
+    //   let data = await processapi.updateProcesses(id, { section: newsections });
+    //   if (data.success) {
+    //     toast.success("Succesfully Updated Process !", {
+    //       position: toast.POSITION.TOP_RIGHT,
+    //     });
+    //     navigate(`${ROUTES?.AddApprovers}?id=${id}`);
+    //   }
+    //   navigate(`${ROUTES?.AddApprovers}`);
+    // } catch (err) {
+    //   toast.error("Something went wrong !", {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   });
+    //   console.log(err);
+    // } finally {
+    // }
   };
 
   useEffect(() => {
-    
+      if(localStorage.getItem('process')){
+        process_name = JSON.parse(localStorage.getItem('process'))
+      }
+      if(localStorage.getItem('sections')){
+        setSections(JSON.parse(localStorage.getItem('sections')))
+      }
+      if(localStorage.getItem('fields')){
+        setFields(JSON.parse(localStorage.getItem('fields')))
+      }
   }, []);
 
 
@@ -300,6 +309,7 @@ const CreateForm = () => {
                               j.title = e.target.value;
                               setFlag((prev) => !prev);
                             }}
+                            value={j.title}
                           />
                           {j.type == types.longAnswer ? (
                             <TextArea

@@ -4,7 +4,7 @@ import Switch from "../../components/Form/Switch";
 import { ROUTES } from "../../routes/RouterConfig";
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { processapi } from "../../apis/Process/Process";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const approvalTypeMap = {
   "Configure your workflow": "create",
@@ -79,6 +79,7 @@ const AddPermission = () => {
         access_to_all: i.accessToAll,
         title: i.title,
         type_of_approval: approvalTypeMap[i.type],
+        users: i?.users,
 
         hidden_fields: [
           ...i?.access
@@ -125,9 +126,7 @@ const AddPermission = () => {
       let data = await processapi.addprocesses(info);
       console.log(data);
       if (data.success) {
-        toast.success("Succesfully Added Process !", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        toast.success("Succesfully Added Process !");
       }
   
 
@@ -156,6 +155,7 @@ const AddPermission = () => {
                     </button>
                 </div>
             </div> */}
+            <ToastContainer />
         <div className="p-4 grid grid-cols-4 gap-4">
           <div className="col-span-1 shadow-card p-3 py-6 flex flex-col gap-6">
             {approvers?.map((i, key) => (
