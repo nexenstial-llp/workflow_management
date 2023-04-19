@@ -11,11 +11,10 @@ import { processapi } from "../../apis/Process/Process";
 import { ToastContainer, toast } from "react-toastify";
 const { Option } = Select;
 
-
 const approvalTypeMap = {
-  "Configure your workflow" : "create",
-   "Approval Step": "approval",
-  "Input Step" : "input",
+  "Configure your workflow": "create",
+  "Approval Step": "approval",
+  "Input Step": "input",
 };
 
 const AddApprovers = () => {
@@ -63,20 +62,21 @@ const AddApprovers = () => {
   //   },
   // ];
 
-const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState([]);
 
- const  getUsers = async () => {
+  const getUsers = async () => {
     try {
       let data = await userApi.getUsers();
       console.log(data);
       if (data.success) {
-        setOptions(data.data?.map((item) => ({ label: item.email, value: item._id })));
+        setOptions(
+          data.data?.map((item) => ({ label: item.email, value: item._id }))
+        );
       }
     } catch (err) {
       console.log(err);
     }
   };
-
 
   const [approvers, setApprovers] = useState([
     {
@@ -130,25 +130,25 @@ const [options, setOptions] = useState([]);
     }));
   };
 
-
   useEffect(() => {
     getUsers();
   }, []);
 
-  const handleSubmit = async(e) => {
-    
+  const handleSubmit = async (e) => {
     localStorage.setItem("approvers", JSON.stringify(approvers));
-    
-    navigate(`${ROUTES?.AddPermission}?id=${id}`);
-    // const newData = approvers.map((item) => {
-    //   return {
-    //     access_to_all: item.accessToAll,
-    //     title: item.title,
-    //     type_of_approval: approvalTypeMap[item.type],
-    //     users: item.users,
-    //   };
-    // });
-    
+
+    const newData = approvers.map((item) => {
+      return {
+        access_to_all: item.accessToAll,
+        title: item.title,
+        type_of_approval: approvalTypeMap[item.type],
+        users: item.users,
+      };
+    });
+
+    console.log("newData",newData);
+    navigate(`${ROUTES?.AddPermission}`);
+
     // try {
     //   let data = await processapi.updateProcesses( id, {approvals: newData} );
     //   if (data.success) {
@@ -163,18 +163,14 @@ const [options, setOptions] = useState([]);
     //   console.log(err);
     // } finally {
     // }
-
   };
 
   useEffect(() => {
-    
-      const data = localStorage.getItem("approvers");
-      if (data) {
-        setApprovers(JSON.parse(data));
-      }
-  
+    const data = localStorage.getItem("approvers");
+    if (data) {
+      setApprovers(JSON.parse(data));
+    }
   }, []);
-
 
   return (
     <DashboardLayout>
@@ -279,7 +275,9 @@ const [options, setOptions] = useState([]);
                     <ol>
                       {i?.users.length != 0
                         ? i?.users.map((j, key2) => (
-                            <li>{options?.find((s) => s?.value == j)?.label}</li>
+                            <li>
+                              {options?.find((s) => s?.value == j)?.label}
+                            </li>
                           ))
                         : "No user added"}
                     </ol>
@@ -357,7 +355,7 @@ const [options, setOptions] = useState([]);
                 className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
                 onClick={(e) => {
                   handleSubmit(e);
-                  }}
+                }}
               >
                 Next
               </button>

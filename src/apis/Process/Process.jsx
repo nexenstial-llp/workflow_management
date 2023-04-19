@@ -55,4 +55,21 @@ export const processapi = {
     console.log(response.data.data);
     return response.data;
   },
+
+  getprocessesforUser: async (id,cancel = false) => {
+    const response = await api.request({
+      url: `api/process/create/all`,
+      method: "GET",
+      headers:{
+      'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+      'Content-Type': 'application/json'
+      },
+      signal: cancel
+        ? defineCancelApiObject[this.get.name].handleRequestCancellation()
+            .signal
+        : undefined,
+    });
+    console.log(response.data.data);
+    return response.data;
+  },
 };

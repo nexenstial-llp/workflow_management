@@ -37,25 +37,23 @@ const CreateProcess = () => {
 
     localStorage.setItem("process", JSON.stringify(details));
     navigate(`${route}`);
-
-    try {
-      setLoading(true);
-      let data = await processapi.addprocesses(details);
-      console.log(data.data._id);
-      if (data.success) {
-        toast.success("Succesfully Added Process !", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }
-      localStorage.setItem("process", JSON.stringify(details));
-      navigate(`${route}?id=${data.data._id}`);
-    } catch (err) {
-      toast.error("Something went wrong !", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } finally {
-      setLoading(false);
-    }
+    // try {
+    //   setLoading(true);
+    //   let data = await processapi.addprocesses(details);
+    //   console.log(data.data._id);
+    //   if (data.success) {
+    //     toast.success("Succesfully Added Process !", {
+    //       position: toast.POSITION.TOP_RIGHT,
+    //     });
+    //   }
+    //   localStorage.setItem("process", JSON.stringify(details));
+    // } catch (err) {
+    //   toast.error("Something went wrong !", {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   });
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (

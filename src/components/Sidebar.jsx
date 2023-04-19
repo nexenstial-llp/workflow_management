@@ -17,6 +17,11 @@ const SidebarOptions = [
     route: ROUTES.getUser,
   },
   {
+    name: "Processes",
+    icon: <UserOutlined />,
+    route: ROUTES.getProcess,
+  },
+  {
     name: "Approvals",
     icon: <UserOutlined />,
     route: ROUTES.getUser,
@@ -24,7 +29,7 @@ const SidebarOptions = [
   {
     name: "My Items",
     icon: <UserOutlined />,
-    route: ROUTES.getUser,
+    route: ROUTES.getItems,
   },
   {
     name: "Users",

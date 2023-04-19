@@ -10,6 +10,8 @@ export const ROUTES = {
     Login:"/login",
     addUser:"/users/add",
     getUser:'/users',
+    getItems:'/getItems',
     getProcess:"/getprocess",
-    editProcess:"/editprocess"
+    editProcess:"/editprocess",
+    Formedit:"/formedit"
 }

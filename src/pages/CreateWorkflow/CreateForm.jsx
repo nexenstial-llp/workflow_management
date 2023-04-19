@@ -197,7 +197,6 @@ const CreateForm = () => {
     const newFields = [...fields];
     newFields.map((item) => {
       item.options = item?.options?.map((item1) => item1?.value || "") || [];
-
       item.type_of_field = item.type;
       return delete item.type;
     });
@@ -215,15 +214,15 @@ const CreateForm = () => {
     localStorage.setItem("sections", JSON.stringify(newsections));
     localStorage.setItem("fields", JSON.stringify(newFields));
 
+    const data = localStorage.getItem("sections");
+    const data2 = localStorage.getItem("fields");
+    if (data) {
+      setSections(JSON.parse(data));
+    }
+    if (data2) {
+      setFields(JSON.parse(data2));
+    }
     navigate(`${ROUTES?.AddApprovers}?id=${id}`);
-    // const data = localStorage.getItem("sections");
-    // const data2 = localStorage.getItem("fields");
-    // if (data) {
-    //   setSections(JSON.parse(data));
-    // }
-    // if (data2) {
-    //   setFields(JSON.parse(data2));
-    // }
 
     // try {
     //   let data = await processapi.updateProcesses(id, { section: newsections });
@@ -231,9 +230,7 @@ const CreateForm = () => {
     //     toast.success("Succesfully Updated Process !", {
     //       position: toast.POSITION.TOP_RIGHT,
     //     });
-    //     navigate(`${ROUTES?.AddApprovers}?id=${id}`);
     //   }
-    //   navigate(`${ROUTES?.AddApprovers}`);
     // } catch (err) {
     //   toast.error("Something went wrong !", {
     //     position: toast.POSITION.TOP_RIGHT,
@@ -243,18 +240,6 @@ const CreateForm = () => {
     // }
   };
 
-  useEffect(() => {
-      if(localStorage.getItem('process')){
-        process_name = JSON.parse(localStorage.getItem('process'))
-      }
-      if(localStorage.getItem('sections')){
-        setSections(JSON.parse(localStorage.getItem('sections')))
-      }
-      if(localStorage.getItem('fields')){
-        setFields(JSON.parse(localStorage.getItem('fields')))
-      }
-  }, []);
-
 
 
   return (
@@ -262,7 +247,7 @@ const CreateForm = () => {
       <div className="CreateForm min-h-screen min-w-screen mb-[100px] m">
         <div className="sm:w-[90%] w-[95%] m-auto shadow-card border-[1px] border-[#F2ECFF] sm:p-10 p-2">
           <div className="text-2xl font-semibold">{process_name.name}</div>
-          <div className="text-sm text-neutral-500">{process_name.desc}</div>
+          <div className="text-sm text-neutral-500">{process_name.description}</div>
           <hr />
           <div className="flex flex-col gap-[20px]">
             {sections.map((i, key) => (
