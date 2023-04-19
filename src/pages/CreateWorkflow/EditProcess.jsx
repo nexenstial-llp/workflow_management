@@ -176,6 +176,7 @@ const EditProcess = () => {
                                 j.title = e.target.value;
                                 setFlag((prev) => !prev);
                               }}
+                              readOnly={true}
                             />
                             {j.type_of_field == types.longAnswer ? (
                               <TextArea
@@ -220,13 +221,14 @@ const EditProcess = () => {
                                     className="flex item-center mt-2 w-full"
                                   >
                                     <div className="sm:w-[100px] w-[50%]">
-                                      Option {key3 + 1} :
+                                     Option {key3 + 1} :
                                     </div>{" "}
                                     <EditableLabel
                                       className={
                                         "bg-nuetral-500 border-b-[1px] border-blue-400 w-full"
                                       }
-                                      value={k.value}
+                                      value={k}
+                                      readOnly={true}
                                       onChange={(e) => {
                                         k.value = e.target.value;
                                         setFlag((prev) => !prev);
@@ -239,7 +241,7 @@ const EditProcess = () => {
                                         );
                                         setFlag((prev) => !prev);
                                       }}
-                                      className="bg-red-100 p-2 ml-2 cursor-pointer rounded"
+                                      className="bg-red-100 hidden p-2 ml-2 cursor-pointer rounded"
                                     >
                                       <BsTrash className="text-red-500" />
                                     </div>
@@ -269,13 +271,14 @@ const EditProcess = () => {
                                     className="flex item-center mt-2 w-full"
                                   >
                                     <div className="sm:w-[100px] w-[50%]">
-                                      Option {key3 + 1} :
+                                     Option {key3 + 1} :
                                     </div>{" "}
                                     <EditableLabel
                                       className={
                                         "bg-nuetral-500 border-b-[1px] border-blue-400 w-full"
                                       }
-                                      value={k.value}
+                                      value={k}
+                                      readOnly={true} 
                                       onChange={(e) => {
                                         k.value = e.target.value;
                                         setFlag((prev) => !prev);
@@ -288,7 +291,7 @@ const EditProcess = () => {
                                         );
                                         setFlag((prev) => !prev);
                                       }}
-                                      className="bg-red-100 p-2 ml-2 cursor-pointer rounded"
+                                      className="bg-red-100 p-2 hidden ml-2 cursor-pointer rounded"
                                     >
                                       <BsTrash className="text-red-500" />
                                     </div>
@@ -323,7 +326,7 @@ const EditProcess = () => {
                               />
                             ) : j.type_of_field == types.time ? (
                               <TimePicker
-                                value={j.placeHolder.split("T")[1]}
+                                value={j.placeHolder.slice(j.placeHolder.split("T")[1],10)}
                                 yes={true}
                                 onChange={(value) => {
                                   j.placeHolder = value.$d;

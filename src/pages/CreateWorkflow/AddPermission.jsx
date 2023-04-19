@@ -111,7 +111,6 @@ const AddPermission = () => {
         title: i.title,
         type_of_approval: approvalTypeMap[i.type],
         users: i?.users,
-
         hidden_fields: [
           ...i?.access
             ?.filter((s) => s.permission == "hidden")
@@ -135,17 +134,19 @@ const AddPermission = () => {
 
     const newArr = [...sections];
 
-    const newFields = fields?.map((item) => {
-      item.options = item?.options?.map((item1) => item1?.value || "") || [];
-      item.type_of_field = item?.type;
-      delete item.type;
-      return item;
-    });
+
+    // const newFields = fields?.map((item) => {
+    //   item.options = item?.options?.map((item1) => item1?.value || "") || [];
+    //   delete item.type;
+    //   return item;
+    // });
+
+    console.log(fields);
 
     newArr.map((i, key) => {
       i.description = "";
       delete i.priority;
-      i.fields = newFields?.filter((f) => {
+      i.fields = fields?.filter((f) => {
         if (f.section_id == i.id) {
           delete f.section_id;
           return f;
@@ -155,28 +156,29 @@ const AddPermission = () => {
       delete i.id;
     });
 
-    console.log(profile);
-
     const info = {
       ...profile,
       description: profile?.description,
       section: newArr,
       approvals: arr,
     };
-    try {
-      //   setLoading(true);
-      let data = await processapi.addprocesses(info);
-      console.log(data);
-      if (data.success) {
-        toast.success("Succesfully Added Process !");
-      }
-    } catch (err) {
-      toast.error("Something went wrong !", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    } finally {
-      //   setLoading(false);
-    }
+
+    console.log(info);
+
+    // try {
+    //   //   setLoading(true);
+    //   let data = await processapi.addprocesses(info);
+    //   console.log(data);
+    //   if (data.success) {
+    //     toast.success("Succesfully Added Process !");
+    //   }
+    // } catch (err) {
+    //   toast.error("Something went wrong !", {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //   });
+    // } finally {
+    //   //   setLoading(false);
+    // }
   };
 
   return (
