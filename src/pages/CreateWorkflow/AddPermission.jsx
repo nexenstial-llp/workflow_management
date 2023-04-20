@@ -169,6 +169,7 @@ const AddPermission = () => {
       console.log(data);
       if (data.success) {
         toast.success("Succesfully Added Process !");
+        navigate(ROUTES.PROCESS);
       }
     } catch (err) {
       toast.error("Something went wrong !", {
@@ -188,7 +189,8 @@ const AddPermission = () => {
             {approvers?.map((i, key) => (
               <div
                 onClick={() => {
-                  console.log(key), setTab(key);
+                  // console.log(key),
+                   setTab(key);
                 }}
                 key={key}
                 className={`hover:bg-blue-500 p-2 rounded-lg cursor-pointer hover:text-white ${

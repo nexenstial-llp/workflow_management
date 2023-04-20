@@ -32,25 +32,26 @@ const ViewProcess = () => {
   return (
     <DashboardLayout>
     <div className="flex  items-center justify-center font-semibold text-3xl">All Processes</div>
-      <div className="grid border-1 border-black grid-cols-3">
+      <div className="grid border-1 border-black grid-cols-3 gap-[30px] mt-[45px]">
         {processes &&
           processes.map((item) => {
             return (
-              <div style={{ overflow: "auto", maxHeight: "300px"}} class="block m-[3rem]  grid-cols-3 rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+              <div style={{ overflow: "auto", maxHeight: "300px"}} class="block  p-[20px] rounded-lg bg-white  shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                 <h5 class="mb-2 text-xl font-medium leading-tight">
                   {item?.name}
                 </h5>
-                <p class="mb-4 text-base">
-                  {item?.description}
+                <p class="mb-4 text-base capitalize">
+                  {item?.description || "-"}
                 </p>
                 <button
                   type="button"
-                  class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                  className="bg-[#000] ml-auto text-[#fff] font-medium flex gap-[10px] items-center justify-center rounded-[8px] px-[20px] py-[10px] "
                   data-te-ripple-init
                   onClick={() => handleSubmit(item?.name,item?.description,item?._id)}
                   data-te-ripple-color="light"
                 >
-                  Edit
+                  View
+                  <i className="bi bi-eye"></i>
                 </button>
               </div>
             );

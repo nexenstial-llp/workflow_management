@@ -470,7 +470,7 @@ const EditProcess = () => {
               <button
                 className=" border-[1px] border-[#000] text-black font-semibold rounded-[8px] px-[20px] py-[10px]"
                 onClick={(e) => {
-                  navigate(ROUTES.CreateProcess);
+                  navigate(ROUTES.getProcess);
                 }}
               >
                 Back

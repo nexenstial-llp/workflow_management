@@ -19,6 +19,7 @@ import Login from "../pages/Login/Login";
 import ViewProcess from "../pages/CreateWorkflow/ViewProcess";
 import Youritems from "../pages/CreateWorkflow/Your_Items";
 import { Form } from "antd";
+import DashboardHome from "../pages/Dashboard/Home";
 const Router = () => {
   const RouteWithRole = ({ Element }) => {
     return (
@@ -79,6 +80,7 @@ const Router = () => {
           element={<EditProcess />}
         ></Route>
         <Route exact path={ROUTES.getItems} element={<Youritems />}></Route>
+        {/* <Route exact path={ROUTES.Dashboard.Home} element={<DashboardHome />}></Route> */}
         <Route exact path={`${ROUTES.Formedit}/:id`} element={<Formedit />}></Route>
       </Routes>
     </div>

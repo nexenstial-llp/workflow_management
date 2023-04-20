@@ -31,7 +31,7 @@ const Login = () => {
       if (data.success) {
         console.log(data);
         sessionStorage.setItem("token",data.token);
-        // navigate(ROUTES.Home);
+        navigate(ROUTES.Home);
       }
     } catch (error) {
       toast.error("Something went wrong. Please enter correct Credentials", {

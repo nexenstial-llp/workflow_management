@@ -2,19 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Button, Dropdown, message, Space, Tooltip } from "antd";
 import { DownOutlined, UserOutlined, PlusOutlined } from "@ant-design/icons";
 // import { ADD_COMPANY, EMPLOYEE } from '../../navigation/Constant';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../routes/RouterConfig";
 
 const SidebarOptions = [
   {
     name: "Dashboard",
     icon: <UserOutlined />,
-    route: "/dashboard/home",
+    route: "/",
   },
   {
     name: "Input Request",
     icon: <UserOutlined />,
-    route: ROUTES.getUser,
+    route: ROUTES.getInputRequest,
   },
   {
     name: "Processes",
@@ -24,7 +24,7 @@ const SidebarOptions = [
   {
     name: "Approvals",
     icon: <UserOutlined />,
-    route: ROUTES.getUser,
+    route: ROUTES.getApprovalRequest,
   },
   {
     name: "My Items",
@@ -46,6 +46,8 @@ const Sidebar = (props) => {
   };
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const [selected, setSelected] = React.useState("Users");
   const [selectedPage, setSelectedPage] = useState("");
@@ -83,6 +85,14 @@ const Sidebar = (props) => {
     onClick: handleMenuClick,
   };
 
+  useEffect(() => {
+    const path = location?.pathname;
+    console.log("path", path);
+    
+    setSelected(SidebarOptions?.find((item) => item?.route == path)?.name);
+    console.log("selectedPage", SidebarOptions?.find((item) => item?.route == path)?.name);
+  }, [location]);
+
   return (
     <div className="p-[20px] h-[100%] border-r-[1px] flex flex-col max-h-[100%]">
       <div className=" text-3xl font-bold text-nex">Nexenstial</div>
@@ -98,6 +108,7 @@ const Sidebar = (props) => {
                   : " text-[#00000080] font-[500]")
               }
               onClick={(e) => {
+                setSelected(option?.name);
                 navigate(option?.route);
               }}
             >
