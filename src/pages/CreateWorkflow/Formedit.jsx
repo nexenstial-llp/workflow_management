@@ -33,9 +33,11 @@ import TimePicker from "../../components/Form/TimePicker";
 import Switch from "../../components/Form/Switch";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/RouterConfig";
+import { processapi } from "../../apis/Process/Process";
 
 const Formedit = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [sections, setSections] = useState([]);
   const [fields, setFields] = useState([]);
@@ -257,30 +259,17 @@ const Formedit = () => {
                                     : ""
                                 }`}
                               >
+                                 <select className="b-[1px]" 
+                                  onChange={(e) => {
+                                    item1.value = e.target.value;
+                                    setFlag((prev) => !prev);
+                                  }}
+                                 >
+                                  <option value="">Select</option>
                                 {item1?.options.map((k, key3) => (
-                                  <div
-                                    key={key3}
-                                    className={`flex item-center mt-2 w-full`}
-                                  >
-                                    <div className="sm:w-[100px] w-[50%]">
-                                      Option {key3 + 1} :
-                                    </div>{" "}
-                                    <EditableLabel
-                                      className={`bg-nuetral-500 border-b-[1px] border-blue-400 w-full`}
-                                      readOnly={
-                                        status1[0] === item1?.id.toString()
-                                          ? true
-                                          : null
-                                      }
-                                      value={k.value}
-                                      onChange={(e) => {
-                                        console.log(e.target.value);
-                                        k.value = e.target.value;
-                                        setFlag((prev) => !prev);
-                                      }}
-                                    />{" "}
-                                  </div>
+                                  <option value={k.value}>{k}</option>
                                 ))}
+                                </select>
                               </div>
                             ) : item1?.type_of_field == types.select ? (
                               <div

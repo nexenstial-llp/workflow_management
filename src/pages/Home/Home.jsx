@@ -28,19 +28,42 @@ const Home = () => {
           </div>
          
         </div>
-        <div className="row d-flex justify-content-center align-items-center mt-5">
-          <div className="col-md-12 d-flex justify-content-center align-items-center ">
-            {/* <button
-              onClick={() => {
-                navigate(ROUTES.Workflows);
-              }}
-              className=" btn btn-success"
-            >
-              Create Workflow Management
-            </button> */}
+        <div className="grid grid-cols-3 gap-[15px] mt-[60px]">
+
+         
+            <div className="card">
+              <div className="card-body flex items-center flex-col">
+                <h5 className="card-title text-2xl font-semibold">Total Items</h5>
+                <p className="card-text text-xl">
+                  20
+                </p>
+                
           </div>
+
         </div>
-      </div>
+        <div className="card">
+              <div className="card-body flex items-center flex-col">
+                <h5 className="card-title text-2xl font-semibold">Approval Request</h5>
+                <p className="card-text text-xl">
+                  20
+                </p>
+                
+          </div>
+
+        </div>
+        <div className="card">
+              <div className="card-body flex items-center flex-col">
+              <h5 className="card-title text-2xl font-semibold">Input Request</h5>
+
+                <p className="card-text text-xl">
+                  10
+                </p>
+                
+          </div>
+
+        </div>
+    </div>
+    </div>
     </div>
     </DashboardLayout>
   );

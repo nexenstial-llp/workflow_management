@@ -13,5 +13,10 @@ export const ROUTES = {
     getItems:'/getItems',
     getProcess:"/getprocess",
     editProcess:"/editprocess",
-    Formedit:"/formedit"
+    Formedit:"/formedit",
+    Dashboard: {
+        Home: "/dashboard/home",
+    },
+    getApprovalRequests:"/getApprovalRequests",
+    getInputRequests:"/getInputRequests",
 }

@@ -162,23 +162,21 @@ const AddPermission = () => {
       section: newArr,
       approvals: arr,
     };
-
-    console.log(info);
-
-    // try {
-    //   //   setLoading(true);
-    //   let data = await processapi.addprocesses(info);
-    //   console.log(data);
-    //   if (data.success) {
-    //     toast.success("Succesfully Added Process !");
-    //   }
-    // } catch (err) {
-    //   toast.error("Something went wrong !", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //   });
-    // } finally {
-    //   //   setLoading(false);
-    // }
+    try {
+      //   setLoading(true);
+      let data = await processapi.addprocesses(info);
+      console.log(data);
+      if (data.success) {
+        toast.success("Succesfully Added Process !");
+        navigate(ROUTES.getProcess);
+      }
+    } catch (err) {
+      toast.error("Something went wrong !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } finally {
+      //   setLoading(false);
+    }
   };
 
   return (
@@ -190,7 +188,8 @@ const AddPermission = () => {
             {approvers?.map((i, key) => (
               <div
                 onClick={() => {
-                  console.log(key), setTab(key);
+                  // console.log(key),
+                   setTab(key);
                 }}
                 key={key}
                 className={`hover:bg-blue-500 p-2 rounded-lg cursor-pointer hover:text-white ${
