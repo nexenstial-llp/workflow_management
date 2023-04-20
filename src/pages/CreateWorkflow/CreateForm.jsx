@@ -69,7 +69,6 @@ const CreateForm = () => {
       name: types.shortAnswer,
       icon: <MdShortText />,
     },
-
     {
       name: types.longAnswer,
       icon: <AiOutlineAlignLeft />,
