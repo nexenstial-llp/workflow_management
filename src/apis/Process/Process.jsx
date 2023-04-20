@@ -52,7 +52,6 @@ export const processapi = {
             .signal
         : undefined,
     });
-    console.log(response.data.data);
     return response.data;
   },
 
@@ -69,7 +68,6 @@ export const processapi = {
             .signal
         : undefined,
     });
-    console.log(response.data.data);
     return response.data;
   },
 };

@@ -240,20 +240,18 @@ const CreateForm = () => {
     // }
   };
 
-
-
   return (
     <DashboardLayout>
-      <div className="CreateForm min-h-screen min-w-screen mb-[100px] m">
+      <div className="CreateForm min-h-screen min-w-screen mb-[100px]">
         <div className="sm:w-[90%] w-[95%] m-auto shadow-card border-[1px] border-[#F2ECFF] sm:p-10 p-2">
           <div className="text-2xl font-semibold">{process_name.name}</div>
-          <div className="text-sm text-neutral-500">{process_name.description}</div>
+          <div className="text-sm">{process_name.description}</div>
           <hr />
           <div className="flex flex-col gap-[20px]">
             {sections.map((i, key) => (
               <section
                 key={key}
-                className="section border-[1px]  border-b-2 p-2 mt-10 transition-all"
+                className="section border-[1px] border-b-2 p-2 mt-10 transition-all"
               >
                 <div className="flex">
                   <EditableLabel

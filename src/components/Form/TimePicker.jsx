@@ -3,14 +3,15 @@ import { TimePicker as Time } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
-const TimePicker = ({ onChange,yes,value }) => {
+const TimePicker = ({ onChange,yes,value,className }) => {
   dayjs.extend(customParseFormat);
 
   return (
     <Time
       disabled={yes} 
       inputReadOnly={yes}
-      placeholder={value.slice(0,8)}
+      placeholder={value}
+      className={className}
       onChange={onChange}
       defaultOpenValue={dayjs("00:00:00", "HH:mm:ss")}
     />
