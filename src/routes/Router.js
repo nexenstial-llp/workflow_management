@@ -20,6 +20,12 @@ import ViewProcess from "../pages/CreateWorkflow/ViewProcess";
 import Youritems from "../pages/CreateWorkflow/Your_Items";
 import { Form } from "antd";
 import DashboardHome from "../pages/Dashboard/Home";
+import InputRequests from "../pages/CreateWorkflow/InputRequests";
+import Approvals from "../pages/CreateWorkflow/Approvals";
+import EditInputreq from "../pages/CreateWorkflow/EditInputreq";
+import Editapprovals from "../pages/CreateWorkflow/Editapprovals";
+import Applications from "../pages/CreateWorkflow/Your_applications";
+
 const Router = () => {
   const RouteWithRole = ({ Element }) => {
     return (
@@ -81,7 +87,36 @@ const Router = () => {
         ></Route>
         <Route exact path={ROUTES.getItems} element={<Youritems />}></Route>
         {/* <Route exact path={ROUTES.Dashboard.Home} element={<DashboardHome />}></Route> */}
-        <Route exact path={`${ROUTES.Formedit}/:id`} element={<Formedit />}></Route>
+        <Route
+          exact
+          path={`${ROUTES.Formedit}/:id`}
+          element={<Formedit />}
+        ></Route>
+        <Route
+          exact
+          path={ROUTES.getInputRequests}
+          element={<InputRequests />}
+        ></Route>
+        <Route
+          exact
+          path={ROUTES.getApprovalRequests}
+          element={<Approvals />}
+        ></Route>
+        <Route
+          exact
+          path={`${ROUTES.editApproval}/:id`}
+          element={<Editapprovals />}
+        ></Route>
+        <Route
+          exact
+          path={`${ROUTES.editInputRequests}/:id`}
+          element={<EditInputreq />}
+        ></Route>
+        <Route
+          exact
+          path={ROUTES.yourApplications}
+          element={<Applications />}
+        ></Route>
       </Routes>
     </div>
   );

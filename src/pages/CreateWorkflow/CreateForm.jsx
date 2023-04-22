@@ -222,21 +222,6 @@ const CreateForm = () => {
       setFields(JSON.parse(data2));
     }
     navigate(`${ROUTES?.AddApprovers}?id=${id}`);
-
-    // try {
-    //   let data = await processapi.updateProcesses(id, { section: newsections });
-    //   if (data.success) {
-    //     toast.success("Succesfully Updated Process !", {
-    //       position: toast.POSITION.TOP_RIGHT,
-    //     });
-    //   }
-    // } catch (err) {
-    //   toast.error("Something went wrong !", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //   });
-    //   console.log(err);
-    // } finally {
-    // }
   };
 
   return (
@@ -286,7 +271,7 @@ const CreateForm = () => {
                         <div className="input-fields-holder flex flex-col gap-0.5 w-full">
                           <EditableLabel
                             name="field"
-                            className="bg-transparent"
+                            className="bg-white"
                             onChange={(e) => {
                               j.title = e.target.value;
                               setFlag((prev) => !prev);
@@ -462,7 +447,7 @@ const CreateForm = () => {
                                     j.type = k.name;
                                     setFlag((prev) => !prev);
                                   }}
-                                  className={`flex flex-col gap-0.5 min-w-[100px] border  p-2 items-center justify-center gap-2 rounded-lg cursor-pointer ${
+                                  className={`flex flex-col min-w-[100px] border  p-2 items-center justify-center gap-2 rounded-lg cursor-pointer ${
                                     k.name == j.type
                                       ? "bg-blue-800 text-neutral-50"
                                       : "border-blue-800"

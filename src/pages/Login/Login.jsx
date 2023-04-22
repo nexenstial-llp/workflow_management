@@ -31,6 +31,7 @@ const Login = () => {
       if (data.success) {
         console.log(data);
         sessionStorage.setItem("token",data.token);
+        localStorage.setItem("uid",data.user._id);
         navigate(ROUTES.Home);
       }
     } catch (error) {

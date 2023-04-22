@@ -117,7 +117,6 @@ const AddApprovers = () => {
   //Hooks
   const location = useLocation();
 
-  console.log(location.state);
 
   const navigate = useNavigate();
 
@@ -148,21 +147,6 @@ const AddApprovers = () => {
 
     console.log("newData",newData);
     navigate(`${ROUTES?.AddPermission}`);
-
-    // try {
-    //   let data = await processapi.updateProcesses( id, {approvals: newData} );
-    //   if (data.success) {
-    //     toast.success("Succesfully Updated Process !", {
-    //       position: toast.POSITION.TOP_RIGHT,
-    //     });
-    //   }
-    // } catch (err) {
-    //   toast.error("Something went wrong !", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //   });
-    //   console.log(err);
-    // } finally {
-    // }
   };
 
   useEffect(() => {
@@ -218,7 +202,7 @@ const AddApprovers = () => {
           <div className="flex justify-between items-center mt-7">
             <button
               onClick={handleCancelModal}
-              className="border border-[1px] border-neutral-500 bg-white text-neutral-500 rounded p-1 px-3 flex items-center justify-center"
+              className="border-[1px] border-neutral-500 bg-white text-neutral-500 rounded p-1 px-3 flex items-center justify-center"
             >
               cancel
             </button>
@@ -257,7 +241,7 @@ const AddApprovers = () => {
 
         {approvers.map((i, key) => (
           <>
-            <div className="sm:w-[50%] w-[70%] m-auto shadow-card border border-[1px] border-[#F2ECFF] sm:p-6 p-2 max-h-[500px] relative">
+            <div className="sm:w-[50%] w-[70%] m-auto shadow-card border-[1px] border-[#F2ECFF] sm:p-6 p-2 max-h-[500px] relative">
               <EditableLabel
                 value={i.title}
                 onChange={(e) => {

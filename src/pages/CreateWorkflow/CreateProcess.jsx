@@ -36,6 +36,7 @@ const CreateProcess = () => {
     }
 
     localStorage.setItem("process", JSON.stringify(details));
+    localStorage.removeItem("approvers");
     navigate(`${route}`);
     // try {
     //   setLoading(true);

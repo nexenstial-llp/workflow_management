@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { applicationapi } from "../../apis/Application/Applicationapi";
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,16 +14,17 @@ import DatePicker from "../../components/Form/DatePicker";
 import TimePicker from "../../components/Form/TimePicker";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/RouterConfig";
-import { processapi } from "../../apis/Process/Process";
 
-const Formedit = () => {
+const Editapprovals = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [sections, setSections] = useState([]);
   const [flag, setFlag] = useState(false);
   const [data, setData] = useState([]);
   const [pid, setPid] = useState("");
+  const [aid, setAid] = useState("");
   let id = params.id;
+  let uid;
   const [process, setProcess] = useState({
     name: "",
     description: "",
@@ -42,9 +43,11 @@ const Formedit = () => {
     currency: "currency",
   };
 
+  uid = localStorage.getItem("uid");
+
   const getData = async () => {
     try {
-      let data = await processapi.getprocessbyId(id);
+      let data = await applicationapi.getApprovalsById(id);
       if (data.success) {
         setPid(data.data._id);
         setProcess({
@@ -61,17 +64,20 @@ const Formedit = () => {
     }
   };
 
-
   useEffect(() => {
     getData();
   }, []);
 
   const handleSubmit = async () => {
+    let status;
+
     for (var i = 0; i < sections.length; i++) {
       for (var j = 0; j < sections[i].fields.length; j++) {
         if (
-          sections[i].fields[j].required == true &&
-          sections[i].fields[j].value == undefined
+          (sections[i].fields[j].required == true &&
+            sections[i].fields[j].value == undefined) ||
+          (sections[i].fields[j].required == true &&
+            sections[i].fields[j].value == "")
         ) {
           toast.error("All Fields are required !", {
             position: toast.POSITION.TOP_RIGHT,
@@ -81,16 +87,29 @@ const Formedit = () => {
       }
     }
 
-    const info = {
-      name: process.name,
-      description: process.description,
-      section: sections,
-      approvals: data,
-      process_id: pid,
-    };
+    const newData = [...data];
+
+    for (var i = 0; i < newData.length; i++) {
+      if (
+        newData[i].status == "Pending" &&
+        newData[i].type_of_approval == "approval"
+      ) {
+        if (i == newData.length - 1) {
+          newData[i].status = "Completed";
+          status = "COMPLETED";
+        } else {
+          newData[i].status = "Completed";
+          status = "ACTIVE";
+        }
+      }
+    }
+    console.log(newData);
 
     try {
-      let data = await applicationapi.addprocesses(info);
+      let data = await applicationapi.updateApprovals(pid, {
+        approvals: newData,
+        status: status,
+      });
       if (data.success) {
         toast.success("Succesfully Added Application Form !", {
           position: toast.POSITION.TOP_RIGHT,
@@ -98,6 +117,9 @@ const Formedit = () => {
       }
     } catch (err) {
       console.log(err);
+      toast.error("Something went wrong !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } finally {
     }
   };
@@ -132,8 +154,12 @@ const Formedit = () => {
                             j++
                           ) {
                             if (
-                              data[index].hidden_fields[j] ==
-                              item1?.id.toString()
+                              data[index].hidden_fields[j] ===
+                                item1?.id.toString() &&
+                              data[index].type_of_approval === "approval" &&
+                              data[index].status === "Pending" &&
+                              (data[index].access_to_all ||
+                                data[index].users.includes(uid))
                             ) {
                               status.push(data[index].hidden_fields[j]);
                               break;
@@ -142,8 +168,8 @@ const Formedit = () => {
                           if (status.length !== 0) {
                             break;
                           }
-                        } // Accessing the hidden_fields property of the first object in data array if it exists
-                        // Returning the matching id in a new array
+                        }
+
                         status1 = [];
                         for (let index = 0; index < data.length; index++) {
                           for (
@@ -153,7 +179,11 @@ const Formedit = () => {
                           ) {
                             if (
                               data[index].read_only_field[j] ==
-                              item1?.id.toString()
+                                item1?.id.toString() &&
+                              data[index].status === "Pending" &&
+                              data[index].type_of_approval === "approval" &&
+                              (data[index].access_to_all ||
+                                data[index].users.includes(uid))
                             ) {
                               status1.push(data[index].read_only_field[j]);
                               break;
@@ -362,7 +392,6 @@ const Formedit = () => {
                 >
                   Back
                 </button>
-
                 <button
                   className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"
                   onClick={() => {
@@ -380,4 +409,4 @@ const Formedit = () => {
   );
 };
 
-export default Formedit;
+export default Editapprovals;

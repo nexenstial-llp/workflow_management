@@ -247,7 +247,7 @@ const EditProcess = () => {
                                     </div>
                                   </div>
                                 ))}
-                                <div>
+                                <div className="hidden">
                                   <button
                                     onClick={() => {
                                       const obj = {
@@ -326,7 +326,7 @@ const EditProcess = () => {
                               />
                             ) : j.type_of_field == types.time ? (
                               <TimePicker
-                                value={j.placeHolder.slice(j.placeHolder.split("T")[1],10)}
+                                value={j.placeHolder.substring(11,19)}
                                 yes={true}
                                 onChange={(value) => {
                                   j.placeHolder = value.$d;
