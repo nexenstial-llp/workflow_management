@@ -36,8 +36,8 @@ function Approvals() {
 
   return (
     <DashboardLayout>
-      <div className="flex  items-center justify-center font-semibold text-3xl">
-        All Processes
+      <div className="flex  items-center justify-center font-semibold text-2xl">
+        Approval Requests
       </div>
       <div className="grid border-1 border-black grid-cols-3 gap-[30px] mt-[45px]">
         {processes &&
@@ -67,6 +67,13 @@ function Approvals() {
             );
           })}
       </div>
+
+      {
+            processes && processes.length == 0 && (
+              <div className="flex flex-row justify-center mt-[1rem]">
+                <p>No Pending Approval Requests</p>
+              </div>)
+          }
     </DashboardLayout>
   );
 }

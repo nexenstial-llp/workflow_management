@@ -224,6 +224,13 @@ const CreateForm = () => {
     navigate(`${ROUTES?.AddApprovers}?id=${id}`);
   };
 
+  useEffect(() => {
+    localStorage.getItem("sections") &&
+      setSections(JSON.parse(localStorage.getItem("sections")));
+    localStorage.getItem("fields") &&
+      setFields(JSON.parse(localStorage.getItem("fields")));
+  }, []);
+
   return (
     <DashboardLayout>
       <div className="CreateForm min-h-screen min-w-screen mb-[100px]">

@@ -15,17 +15,19 @@ const SidebarOptions = [
     name: "Input Request",
     icon: <UserOutlined />,
     route: ROUTES.getInputRequests,
+    
+  },
+  {
+    name: "Approval Request",
+    icon: <UserOutlined />,
+    route: ROUTES.getApprovalRequests,
   },
   {
     name: "Processes",
     icon: <UserOutlined />,
     route: ROUTES.getProcess,
   },
-  {
-    name: "Approvals",
-    icon: <UserOutlined />,
-    route: ROUTES.getApprovalRequests,
-  },
+  
   {
     name: "My Items",
     icon: <UserOutlined />,

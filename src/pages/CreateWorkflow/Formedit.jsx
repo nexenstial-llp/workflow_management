@@ -67,19 +67,20 @@ const Formedit = () => {
   }, []);
 
   const handleSubmit = async () => {
-    for (var i = 0; i < sections.length; i++) {
-      for (var j = 0; j < sections[i].fields.length; j++) {
-        if (
-          sections[i].fields[j].required == true &&
-          sections[i].fields[j].value == undefined
-        ) {
-          toast.error("All Fields are required !", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-          return;
-        }
-      }
-    }
+    // for (var i = 0; i < sections.length; i++) {
+    //   for (var j = 0; j < sections[i].fields.length; j++) {
+    //     if (
+    //       sections[i].fields[j].required == true &&
+    //       sections[i].fields[j].value == undefined 
+    //       && 
+    //     ) {
+    //       toast.error("All Fields are required !", {
+    //         position: toast.POSITION.TOP_RIGHT,
+    //       });
+    //       return;
+    //     }
+    //   }
+    // }
 
     const info = {
       name: process.name,
@@ -95,6 +96,7 @@ const Formedit = () => {
         toast.success("Succesfully Added Application Form !", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        navigate('/yourApplications');
       }
     } catch (err) {
       console.log(err);
@@ -108,7 +110,7 @@ const Formedit = () => {
   return (
     <DashboardLayout>
       <ToastContainer />
-      <div>
+      <div className="mb-[300px]">
         <div className="sm:w-[90%] w-[95%] m-auto shadow-card border-[1px] border-[#F2ECFF] sm:p-10 p-2">
           <div className="text-2xl font-semibold">{process.name}</div>
           <div className="text-sm">{process.description}</div>
@@ -346,22 +348,18 @@ const Formedit = () => {
                 </section>
               );
             })}
-          <div>
-            <p className="flex text-lg font-semibold items-center justify-center">
-              Approvals
-            </p>
-          </div>
+         
           <div className="relative">
             <div className="footer border-[1px] max-width-[100%] md:w-[80%] w-[100%] fixed bottom-0 shadow-md bg-[#fff] right-[0px] ">
               <div className="flex justify-between gap-[10px] p-[10px]">
-                <button
+                {/* <button
                   className=" border-[1px] border-[#000] text-black font-semibold rounded-[8px] px-[20px] py-[10px]"
                   onClick={(e) => {
                     navigate(ROUTES.CreateProcess);
                   }}
                 >
                   Back
-                </button>
+                </button> */}
 
                 <button
                   className="bg-[#000] ml-auto text-[#fff] font-semibold rounded-[8px] px-[20px] py-[10px]"

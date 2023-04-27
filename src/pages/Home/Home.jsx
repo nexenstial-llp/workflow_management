@@ -35,7 +35,7 @@ const Home = () => {
               <div className="card-body flex items-center flex-col">
                 <h5 className="card-title text-2xl font-semibold">Total Items</h5>
                 <p className="card-text text-xl">
-                  20
+                  5
                 </p>
                 
           </div>
@@ -45,7 +45,7 @@ const Home = () => {
               <div className="card-body flex items-center flex-col">
                 <h5 className="card-title text-2xl font-semibold">Approval Request</h5>
                 <p className="card-text text-xl">
-                  20
+                  0
                 </p>
                 
           </div>
@@ -56,7 +56,7 @@ const Home = () => {
               <h5 className="card-title text-2xl font-semibold">Input Request</h5>
 
                 <p className="card-text text-xl">
-                  10
+                  0
                 </p>
                 
           </div>

@@ -2,7 +2,7 @@ import React from "react";
 import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 import { processapi } from "../../apis/Process/Process";
 import { useState, useEffect } from "react";
-import {ROUTES} from "../../routes/RouterConfig"
+import { ROUTES } from "../../routes/RouterConfig"
 import { useNavigate } from "react-router-dom";
 const Youritems = () => {
   const navigate = useNavigate();
@@ -31,13 +31,17 @@ const Youritems = () => {
 
   return (
     <DashboardLayout>
-      <div className="grid grid-cols-3">
+
+    <div>
+      <h1 className="text-2xl text-center font-semibold">Select Process to Create Application</h1>
+    </div>
+      <div className="grid grid-cols-3 mt-[30px]">
         {processes &&
           processes.map((item) => {
             return (
               <div
                 style={{ overflow: "auto", maxHeight: "300px" }}
-                class="block m-[3rem]  grid-cols-3 rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]"
+                class="block  grid-cols-3 rounded-lg bg-white p-[10px] shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]"
               >
                 <h5 class="mb-2 text-xl font-medium leading-tight">
                   {item?.name}
@@ -45,18 +49,26 @@ const Youritems = () => {
                 <p class="mb-4 text-base">{item?.description}</p>
                 <button
                   type="button"
-                  class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                  class="inline-block rounded bg-[#000] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md"
                   data-te-ripple-init
                   onClick={() =>
                     handleSubmit(item?.name, item?.description, item?._id)
                   }
                   data-te-ripple-color="light"
                 >
-                  Application
+                 + Create Application
                 </button>
               </div>
             );
           })}
+
+        {
+          processes && processes.length == 0 && (
+            <div className="flex col-span-3 flex-col justify-center items-center w-[100%] mt-[1rem]">
+              <p className="font-semibold">No Processes Assigned to You</p>
+              <p>Please contact Admin to get access of processes</p>
+            </div>)
+        }
       </div>
     </DashboardLayout>
   );

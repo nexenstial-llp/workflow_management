@@ -37,7 +37,7 @@ const SelectStep = () => {
                   </div>
                 </div>
               </div>
-              <div className="card rounded-lg cursor-pointer shadow-sm mb-3">
+              {/* <div className="card rounded-lg cursor-pointer shadow-sm mb-3">
                 <div className="card-body p-3">
                   <div class="d-flex bd-highlight">
                     <div class="p-2 bd-highlight">
@@ -71,7 +71,7 @@ const SelectStep = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="row">

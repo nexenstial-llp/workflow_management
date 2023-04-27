@@ -74,21 +74,21 @@ const EditInputreq = () => {
 
    let status;
 
-    for (var i = 0; i < sections.length; i++) {
-      for (var j = 0; j < sections[i].fields.length; j++) {
-        if (
-          (sections[i].fields[j].required == true &&
-            sections[i].fields[j].value == undefined) ||
-          (sections[i].fields[j].required == true &&
-            sections[i].fields[j].value == "")
-        ) {
-          toast.error("All Fields are required !", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-          return;
-        }
-      }
-    }
+    // for (var i = 0; i < sections.length; i++) {
+    //   for (var j = 0; j < sections[i].fields.length; j++) {
+    //     if (
+    //       (sections[i].fields[j].required == true &&
+    //         sections[i].fields[j].value == undefined) ||
+    //       (sections[i].fields[j].required == true &&
+    //         sections[i].fields[j].value == "")
+    //     ) {
+    //       toast.error("All Fields are required !", {
+    //         position: toast.POSITION.TOP_RIGHT,
+    //       });
+    //       return;
+    //     }
+    //   }
+    // }
 
     const newData = [...data];
 
@@ -112,9 +112,10 @@ const EditInputreq = () => {
     try {
       let data = await applicationapi.updateApprovals(pid, { section: sections, approvals: newData , status:status });
       if (data.success) {
-        toast.success("Succesfully Added Application Form !", {
+        toast.success("Successfully completed Input Request", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        navigate("/yourApplications");
       }
     } catch (err) {
       console.log(err);
@@ -132,7 +133,7 @@ const EditInputreq = () => {
   return (
     <DashboardLayout>
       <ToastContainer />
-      <div>
+      <div className="mb-[200px]">
         <div className="sm:w-[90%] w-[95%] m-auto shadow-card border-[1px] border-[#F2ECFF] sm:p-10 p-2">
           <div className="text-2xl font-semibold">{process.name}</div>
           <div className="text-sm">{process.description}</div>
@@ -378,11 +379,7 @@ const EditInputreq = () => {
                 </section>
               );
             })}
-          <div>
-            <p className="flex text-lg font-semibold items-center justify-center">
-              Approvals
-            </p>
-          </div>
+         
           <div className="relative">
             <div className="footer border-[1px] max-width-[100%] md:w-[80%] w-[100%] fixed bottom-0 shadow-md bg-[#fff] right-[0px] ">
               <div className="flex justify-between gap-[10px] p-[10px]">
