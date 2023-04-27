@@ -103,10 +103,9 @@ const Editapprovals = () => {
         }
       }
     }
-    console.log(newData);
-
     try {
       let data = await applicationapi.updateApprovals(pid, {
+        section: sections,
         approvals: newData,
         status: status,
       });

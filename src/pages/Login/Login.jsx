@@ -32,7 +32,8 @@ const Login = () => {
         console.log(data);
         sessionStorage.setItem("token",data.token);
         localStorage.setItem("uid",data.user._id);
-        navigate(ROUTES.Home);
+        localStorage.setItem("role",data.user.role);
+        navigate(ROUTES.Home);  
       }
     } catch (error) {
       toast.error("Something went wrong. Please enter correct Credentials", {

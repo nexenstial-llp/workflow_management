@@ -312,7 +312,7 @@ const AddApprovers = () => {
                 }}
                 trigger={["click"]}
               >
-                <button className="absolute bottom-[-20px] left-[45%] m-auto btn btn-success text-neutral-100 rounded p-1 px-3">
+                <button className="absolute bottom-[6px] left-[45%] btn btn-success text-neutral-100 rounded p-1 px-3">
                   Add +
                 </button>
               </Dropdown>

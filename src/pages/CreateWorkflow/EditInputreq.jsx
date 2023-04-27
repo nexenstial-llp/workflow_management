@@ -110,7 +110,7 @@ const EditInputreq = () => {
     console.log(newData);
 
     try {
-      let data = await applicationapi.updateApprovals(pid, { approvals: newData , status:status });
+      let data = await applicationapi.updateApprovals(pid, { section: sections, approvals: newData , status:status });
       if (data.success) {
         toast.success("Succesfully Added Application Form !", {
           position: toast.POSITION.TOP_RIGHT,
@@ -125,7 +125,6 @@ const EditInputreq = () => {
     }
   };
 
-  console.log("approvals", sections);
 
   let status = [],
     status1 = [];

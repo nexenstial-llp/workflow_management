@@ -38,57 +38,19 @@ const SidebarOptions = [
   },
 ];
 
-const Sidebar = (props) => {
-  // const router = useRouter()
-
-  const handleClick = (e, route) => {
-    e.preventDefault();
-  };
+const Sidebar = () => {
 
   const navigate = useNavigate();
 
   const location = useLocation();
 
   const [selected, setSelected] = React.useState("Users");
-  const [selectedPage, setSelectedPage] = useState("");
-  const items = [
-    {
-      label: "1st menu item",
-      key: "1",
-      icon: <UserOutlined />,
-    },
-    {
-      label: "2nd menu item",
-      key: "2",
-      icon: <UserOutlined />,
-    },
-    {
-      label: (
-        <p className="text-[var(--secondary)] font-semibold">
-          Add New Business
-        </p>
-      ),
-      key: "3",
-      icon: <PlusOutlined />,
-      // danger: true,
-    },
-  ];
 
-  const handleMenuClick = (e) => {
-    if (Number(e?.key) == 3) {
-      // navigate(ADD_COMPANY)
-    }
-  };
-
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
-  };
+  let role = localStorage.getItem("role");
 
   useEffect(() => {
     const path = location?.pathname;
     console.log("path", path);
-    
     setSelected(SidebarOptions?.find((item) => item?.route == path)?.name);
     console.log("selectedPage", SidebarOptions?.find((item) => item?.route == path)?.name);
   }, [location]);
@@ -99,6 +61,7 @@ const Sidebar = (props) => {
 
       <ul className="mt-[30px] pt-[30px] border-t-[1px] ">
         {SidebarOptions.map((option, index) => {
+          if (option.name !== "Users" && role === "users" || role === "admin") {
           return (
             <li
               className={
@@ -107,19 +70,24 @@ const Sidebar = (props) => {
                   ? " bg-[#000] text-white"
                   : " text-[#00000080] font-[500]")
               }
-              onClick={(e) => {
+              onClick={() => {
                 setSelected(option?.name);
                 navigate(option?.route);
               }}
             >
-              {/* <img src="" alt="" /> */}
               {option?.icon}
               <p className="m-0 ">{option?.name}</p>
             </li>
           );
+            }
+            else{
+              return null;
+            }
         })}
       </ul>
 
+      {
+        role && role === "admin" ? 
       <button
         className="w-[100%] flex gap-[20px] items-center bg-[#000]/[0.1] rounded-[4px] p-[15px] text-[18px] font-bold mt-auto"
         onClick={(e) => {
@@ -131,6 +99,7 @@ const Sidebar = (props) => {
         </div>
         Create
       </button>
+      :null}
     </div>
   );
 };
